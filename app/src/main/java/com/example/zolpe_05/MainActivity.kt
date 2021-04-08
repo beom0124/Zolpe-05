@@ -29,7 +29,7 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
 
         when(item.itemId) {
             R.id.home -> {
-                Toast.makeText(this,"홈",Toast.LENGTH_SHORT).show()
+                Toast.makeText(this,"홈이예찬",Toast.LENGTH_SHORT).show()
                 //supportFragmentManager.beginTransaction().replace(R.id.linearLayout , HomeFragment()).commitAllowingStateLoss()
                 return true
             }
