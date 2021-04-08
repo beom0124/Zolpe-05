@@ -1,8 +1,8 @@
 package com.example.zolpe_05
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
@@ -21,27 +21,26 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         var bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
 
         bottomNavigationView.setOnNavigationItemSelectedListener(this)
+
+        //supportFragmentManager.beginTransaction().add(R.id.linearLayout, HomeFragment()).commit()
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
 
         when(item.itemId) {
             R.id.home -> {
-                Toast.makeText(this,"이미 메인 메뉴에 있습니다.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this,"홈",Toast.LENGTH_SHORT).show()
+                //supportFragmentManager.beginTransaction().replace(R.id.linearLayout , HomeFragment()).commitAllowingStateLoss()
                 return true
             }
             R.id.camera -> {
-                val cameraIntent = Intent(this, CameraActivity::class.java)
-                cameraIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                startActivity(cameraIntent)
-                finish()
+                Toast.makeText(this,"카메라",Toast.LENGTH_SHORT).show()
+                //supportFragmentManager.beginTransaction().replace(R.id.linearLayout, TVFragment()).commitAllowingStateLoss()
                 return true
             }
             R.id.chat -> {
-                val chatIntent = Intent(this, ChatActivity::class.java)
-                chatIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                startActivity(chatIntent)
-                finish()
+                Toast.makeText(this,"챗봇",Toast.LENGTH_SHORT).show()
+                //supportFragmentManager.beginTransaction().replace(R.id.linearLayout, CalendarFragment()).commitAllowingStateLoss()
                 return true
             }
         }
