@@ -1,5 +1,6 @@
 package com.example.zolpe_05
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
@@ -29,18 +30,19 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
 
         when(item.itemId) {
             R.id.home -> {
-                Toast.makeText(this,"홈",Toast.LENGTH_SHORT).show()
-                //supportFragmentManager.beginTransaction().replace(R.id.linearLayout , HomeFragment()).commitAllowingStateLoss()
+                Toast.makeText(this,"이미 메인 화면 입니다",Toast.LENGTH_SHORT).show()
                 return true
             }
             R.id.camera -> {
-                Toast.makeText(this,"카메라",Toast.LENGTH_SHORT).show()
-                //supportFragmentManager.beginTransaction().replace(R.id.linearLayout, TVFragment()).commitAllowingStateLoss()
+                val cameraIntent = Intent(this, CameraActivity::class.java)
+                cameraIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                startActivity(cameraIntent)
                 return true
             }
             R.id.chat -> {
-                Toast.makeText(this,"챗봇",Toast.LENGTH_SHORT).show()
-                //supportFragmentManager.beginTransaction().replace(R.id.linearLayout, CalendarFragment()).commitAllowingStateLoss()
+                val chatIntent = Intent(this, ChatActivity::class.java)
+                chatIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                startActivity(chatIntent)
                 return true
             }
         }
