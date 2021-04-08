@@ -1,17 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+
     <item
-        android:id="@+id/page_home"
+        android:id="@+id/camera"
+        android:enabled="true"
+        android:title="카메라"/>
+
+    <item
+        android:id="@+id/home"
         android:enabled="true"
         android:title="홈"/>
 
     <item
-        android:id="@+id/page_tv"
+        android:id="@+id/chat"
         android:enabled="true"
-        android:title="TV"/>
-
-    <item
-        android:id="@+id/page_calendar"
-        android:enabled="true"
-        android:title="일정"/>
+        android:title="챗봇"/>
 </menu>
