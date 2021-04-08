@@ -5,15 +5,22 @@
     <item
         android:id="@+id/camera"
         android:enabled="true"
-        android:title="카메라"/>
+        android:title="카메라"
+        android:icon="@drawable/icon_camera"
+/>
 
     <item
         android:id="@+id/home"
         android:enabled="true"
-        android:title="홈"/>
+        android:title="홈"
+        android:icon="@drawable/icon_home"
+
+        />
 
     <item
         android:id="@+id/chat"
         android:enabled="true"
-        android:title="챗봇"/>
+        android:title="챗봇"
+        android:icon="@drawable/icon_chat"
+        />
 </menu>
