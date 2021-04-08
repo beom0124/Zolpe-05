@@ -6,16 +6,28 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/rightArrow"
         android:layout_width="61dp"
         android:layout_height="36dp"
-        android:text="Button"
+        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
+        app:layout_constraintEnd_toStartOf="@+id/imageView2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@drawable/right_arrow"
+        />
+         <!-- icon copyright : www.flaticon.com-->
+    <Button
+        android:id="@+id/leftArrow"
+        android:layout_width="61dp"
+        android:layout_height="36dp"
         app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/imageView2"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@drawable/left_arrow"/>
+        <!-- icon copyright : www.flaticon.com-->
+
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationView"
@@ -39,14 +51,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/manwuzeol" />
 
-    <Button
-        android:id="@+id/button"
-        android:layout_width="61dp"
-        android:layout_height="36dp"
-        android:text="Button"
-        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
-        app:layout_constraintEnd_toStartOf="@+id/imageView2"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

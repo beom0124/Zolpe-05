@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
+import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
@@ -22,6 +23,11 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         var bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
 
         bottomNavigationView.setOnNavigationItemSelectedListener(this)
+
+        val rightarrow = findViewById<Button>(R.id.rightArrow)
+        rightarrow.setOnClickListener {
+            Toast.makeText(this,"right arrow",Toast.LENGTH_SHORT).show()
+        }
 
         //supportFragmentManager.beginTransaction().add(R.id.linearLayout, HomeFragment()).commit()
     }
