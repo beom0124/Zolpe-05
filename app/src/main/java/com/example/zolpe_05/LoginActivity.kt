@@ -5,11 +5,16 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
+import com.example.zolpe_05.databinding.ActivityLoginBinding
+import com.example.zolpe_05.databinding.ActivityMainBinding
 
 class LoginActivity : AppCompatActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
+    val binding by lazy { ActivityLoginBinding.inflate(layoutInflater)}
+
+   override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_login)
+        //setContentView(R.layout.activity_login)
+        setContentView(binding.root)
         var actionBar : ActionBar?
 
         actionBar = supportActionBar

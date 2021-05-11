@@ -43,6 +43,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import com.example.zolpe_05.databinding.ActivityCameraBinding
+import com.example.zolpe_05.databinding.ActivityChatBinding
 import com.google.gson.JsonObject
 import org.json.JSONObject
 
@@ -60,23 +62,28 @@ import retrofit2.Callback
 import retrofit2.Response
 
 
-//날씨 import들
+//날씨 import
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Query
 
 
+
 class ChatActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemSelectedListener{
+
+    val binding by lazy { ActivityChatBinding.inflate(layoutInflater) }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_camera)
+        setContentView(binding.root)
         var actionBar : ActionBar?
 
         actionBar = supportActionBar
         actionBar?.hide()
 
-        var bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
+        var bottomNavigationView = binding.bottomNavigationView
+
         bottomNavigationView.setOnNavigationItemSelectedListener(this)
 
         val retrofit: Retrofit? = Retrofit.Builder()
@@ -86,35 +93,35 @@ class ChatActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
 
     }
 
-    @GET("weather?")
-    fun getCurrentWeather(
-            @Query("lat") lat: String,
-            @Query("lon") lon: String,
-            @Query("APPID") APPID: String)
-            : Call<JsonObject>
-
-
-    fun getCurrentWeather() {
-
-
-        var res: Call<JsonObject> = RetrofitClient
-                .getInstance()
-                .buildRetrofit()
-                .getCurrentWeather(latitude, longitude, OPEN_WEATHER_MAP_KEY)
-
-        res.enqueue(object: Callback<JsonObject> {
-
-            override fun onFailure(call: Call<JsonObject>, t: Throwable) {
-                Log.d(TAG, "Failure : ${t.message.toString()}")
-            }
-
-            override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
-                var jsonObj = JSONObject(response.body().toString())
-                Log.d(TAG , "Success :: $jsonObj")
-
-            }
-        })
-    }
+//    @GET("weather?")
+//    fun getCurrentWeather(
+//            @Query("lat") lat: String,
+//            @Query("lon") lon: String,
+//            @Query("APPID") APPID: String)
+//            : Call<JsonObject>
+//
+//
+//    fun getCurrentWeather() {
+//
+//
+//        var res: Call<JsonObject> = RetrofitClient
+//                .getInstance()
+//                .buildRetrofit()
+//                .getCurrentWeather(latitude, longitude, OPEN_WEATHER_MAP_KEY)
+//
+//        res.enqueue(object: Callback<JsonObject> {
+//
+//            override fun onFailure(call: Call<JsonObject>, t: Throwable) {
+//                Log.d(TAG, "Failure : ${t.message.toString()}")
+//            }
+//
+//            override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
+//                var jsonObj = JSONObject(response.body().toString())
+//                Log.d(TAG , "Success :: $jsonObj")
+//
+//            }
+//        })
+//    }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when(item.itemId) {

@@ -1,26 +1,72 @@
 package com.example.zolpe_05
 
+import android.R.attr.button
+import android.app.Activity
 import android.content.Intent
+import android.graphics.BitmapFactory
+import android.net.Uri
 import android.os.Bundle
+import android.os.Environment
 import android.provider.MediaStore
 import android.view.MenuItem
+import android.view.View
+import android.widget.Button
+import android.widget.ImageView
 import android.widget.Toast
+import androidx.annotation.Nullable
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
+import com.example.zolpe_05.databinding.ActivityCameraBinding
+import com.example.zolpe_05.databinding.ActivityMainBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import java.io.File
+
+
+var imageView: ImageView? = null
+
+var file: File? = null
 
 class CameraActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemSelectedListener{
+    val binding by lazy { ActivityCameraBinding.inflate(layoutInflater) }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_camera)
+        setContentView(binding.root)
         var actionBar : ActionBar?
 
         actionBar = supportActionBar
         actionBar?.hide()
 
-        var bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
-
+        var bottomNavigationView = binding.bottomNavigationView
         bottomNavigationView.setOnNavigationItemSelectedListener(this)
+
+        val sdcard: File = Environment.getExternalStorageDirectory()
+        file = File(sdcard, "capture.jpg")
+
+        var button : Button?
+        button = findViewById(R.id.button)
+
+        button.setOnClickListener(object : View.OnClickListener() {
+            override fun onClick(v: View?) {
+                capture()
+            }
+        })
+    }
+
+    fun capture() {
+        val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(file))
+        startActivityForResult(intent, 101)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, @Nullable data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == 101 && resultCode == Activity.RESULT_OK) {
+            val options = BitmapFactory.Options()
+            options.inSampleSize = 8
+            val bitmap = BitmapFactory.decodeFile(file!!.absolutePath, options)
+            imageView!!.setImageBitmap(bitmap)
+        }
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {

@@ -8,7 +8,9 @@ import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
+import com.example.zolpe_05.databinding.ActivityMainBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
+
 //import com.example.firebasedatabase.databinding.ActivityMainBinding
 //import com.google.firebase.firestore.FirebaseFirestore
 //import com.google.firebase.firestore.ktx.firestore
@@ -16,25 +18,23 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 
 
 class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemSelectedListener {
-    override fun onCreate(savedInstanceState: Bundle?) {
+
+    val binding by lazy { ActivityMainBinding.inflate(layoutInflater)}
+    override  fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(binding.root)
 
         var actionBar : ActionBar?
-
         actionBar = supportActionBar
         actionBar?.hide()
 
-        var bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
-
+        var bottomNavigationView = binding.bottomNavigationView
         bottomNavigationView.setOnNavigationItemSelectedListener(this)
 
-        val rightarrow = findViewById<Button>(R.id.rightArrow)
+        val rightarrow = binding.rightArrow
         rightarrow.setOnClickListener {
             Toast.makeText(this,"right arrow",Toast.LENGTH_SHORT).show()
         }
-
-        //supportFragmentManager.beginTransaction().add(R.id.linearLayout, HomeFragment()).commit()
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
