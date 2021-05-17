@@ -13,17 +13,17 @@ class LoginActivity : AppCompatActivity() {
 
    override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        //setContentView(R.layout.activity_login)
         setContentView(binding.root)
         var actionBar : ActionBar?
 
         actionBar = supportActionBar
         actionBar?.hide()
 
-        buttonLogin.setOnClickListener { //버튼 왜 안됨?
+        binding.buttonLogin.setOnClickListener { //버튼 왜 안됨?
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
-            if(height_insert.isNullOrEmpty() && weight_insert.isNullOrEmpty() && topsize_insert.isNullEmpty() && undersize_insert.isNullOrEmpty() && google_id_insert.isNullEmpty() && google_pw_insert.isNullEmpty()){
+                if(binding.heightInsert.getText().toString() == null || binding.weightInsert.getText().toString() == null || binding.topsizeInsert.getText().toString() == null || binding.undersizeInsert.getText().toString() == null
+                        || binding.googleIdInsert.getText().toString() == null || binding.googlePwInsert.getText().toString() == null){
                 Toast.makeText(this, "빈칸 없이 정보를 입력해주세요", Toast.LENGTH_SHORT).show()
             }
         }
