@@ -6,7 +6,6 @@ import android.widget.Toast
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import com.example.zolpe_05.databinding.ActivityLoginBinding
-import com.example.zolpe_05.databinding.ActivityMainBinding
 
 class LoginActivity : AppCompatActivity() {
     val binding by lazy { ActivityLoginBinding.inflate(layoutInflater)}
