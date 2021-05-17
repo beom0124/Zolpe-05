@@ -1,6 +1,5 @@
 package com.example.zolpe_05
 
-import android.R.attr.button
 import android.app.Activity
 import android.content.Intent
 import android.graphics.BitmapFactory
@@ -17,12 +16,8 @@ import androidx.annotation.Nullable
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import com.example.zolpe_05.databinding.ActivityCameraBinding
-import com.example.zolpe_05.databinding.ActivityMainBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import java.io.File
-
-
-var imageView: ImageView? = null
 
 var file: File? = null
 
@@ -40,20 +35,16 @@ class CameraActivity : AppCompatActivity(), BottomNavigationView.OnNavigationIte
         var bottomNavigationView = binding.bottomNavigationView
         bottomNavigationView.setOnNavigationItemSelectedListener(this)
 
-        val sdcard: File = Environment.getExternalStorageDirectory()
+        val sdcard: File = Environment.getExternalStorageDirectory() //여기가 문제
+        //val sdcard: File = Environment.getExternalFilesDir()
         file = File(sdcard, "capture.jpg")
+        binding.button.setOnClickListener {
+            capture()
+        }
 
-        var button : Button?
-        button = findViewById(R.id.button)
-
-        button.setOnClickListener(object : View.OnClickListener() {
-            override fun onClick(v: View?) {
-                capture()
-            }
-        })
     }
 
-    fun capture() {
+    fun capture() { //카메라 촬영  인텐트 시작하는 함수
         val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
         intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(file))
         startActivityForResult(intent, 101)
@@ -65,7 +56,8 @@ class CameraActivity : AppCompatActivity(), BottomNavigationView.OnNavigationIte
             val options = BitmapFactory.Options()
             options.inSampleSize = 8
             val bitmap = BitmapFactory.decodeFile(file!!.absolutePath, options)
-            imageView!!.setImageBitmap(bitmap)
+            binding.imageView.setImageBitmap(bitmap)
+            //imageView!!.setImageBitmap(bitmap)
         }
     }
 
@@ -94,3 +86,4 @@ class CameraActivity : AppCompatActivity(), BottomNavigationView.OnNavigationIte
         return false
     }
 }
+
