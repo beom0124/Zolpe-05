@@ -50,11 +50,12 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
     //noinspection GradleCompatible
     implementation 'com.android.support:design:29.0.0'
-
+    //implementation 'com.google.android.material"materital:1.0.0'
     implementation platform('com.google.firebase:firebase-bom:28.0.1')
     implementation 'com.google.firebase:firebase-analytics-ktx'
     //firebase 연동
 
     implementation 'com.google.firebase:firebase-auth:16.0.3'
     implementation 'com.google.android.gms:play-services-auth:16.0.0'
+    implementation 'com.firebaseui:firebase-ui-auth:4.3.2'
 }
