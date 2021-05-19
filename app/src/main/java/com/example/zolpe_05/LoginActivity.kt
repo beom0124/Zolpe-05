@@ -42,7 +42,13 @@ class LoginActivity : AppCompatActivity() {
         google_login.setOnClickListener{
             val signInIntent = googleSignInClient?.getSignInIntent()
             startActivityForResult(signInIntent, RC_SIGN_IN)
-        }
+        } //구글계정 로그인 버튼 
+        
+        buttonLogin.setOnClickListener{
+            val loginIntent = Intent(this, MainActivity::class.java)
+            loginIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            startActivity(loginIntent)
+        } //전체 로그인 입력 후 다음 페이지 버튼
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
