@@ -10,6 +10,7 @@ import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import com.example.zolpe_05.databinding.ActivityMainBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import java.util.*
 
 //import com.example.firebasedatabase.databinding.ActivityMainBinding
 //import com.google.firebase.firestore.FirebaseFirestore
@@ -24,7 +25,7 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        var actionBar : ActionBar?
+        var actionBar: ActionBar?
         actionBar = supportActionBar
         actionBar?.hide()
 
@@ -33,7 +34,7 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
 
         val rightarrow = binding.rightArrow
         rightarrow.setOnClickListener {
-            Toast.makeText(this,"right arrow",Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "right arrow", Toast.LENGTH_SHORT).show()
         }
     }
 
