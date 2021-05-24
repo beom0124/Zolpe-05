@@ -29,5 +29,31 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"/>
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/mytool"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/common_google_signin_btn_text_dark_focused"
+        android:foreground="@color/browser_actions_divider_color"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        tools:ignore="MissingConstraints" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="com.tutsplus.dialogflowtutorial.MainActivity">
+
+        <com.github.bassaer.chatmessageview.view.ChatView
+            android:id="@+id/my_chat_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/fui_bgGoogle"
+            tools:ignore="MissingClass">
+
+        </com.github.bassaer.chatmessageview.view.ChatView>
+
+    </FrameLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

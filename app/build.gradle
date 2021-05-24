@@ -63,4 +63,8 @@ dependencies {
     implementation 'com.firebaseui:firebase-ui-auth:4.3.2'
     //firebase DB 연동
     implementation 'com.google.firebase:firebase-database-ktx'
+
+    implementation 'com.github.kittinunf.fuel:fuel-android:1.12.1'
+    implementation 'com.github.bassaer:chatmessageview:1.10.0'
+    //firebase
 }
