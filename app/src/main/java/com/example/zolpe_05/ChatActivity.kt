@@ -15,6 +15,8 @@ import androidx.core.content.ContextCompat
 import com.github.bassaer.chatmessageview.model.ChatUser
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_chat.*
+import java.io.IOException
+import java.net.URL
 import java.util.*
 
 class ChatActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemSelectedListener{
@@ -95,10 +97,10 @@ class ChatActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
                                     .setText(my_chat_view.inputText)
                                     .build()
                             )
+                            //HTTP 응답으로 result/fulfillment/speech 값에 에이전트의 응답이 포함 된 JSON 문서를 받게 된대
                             Fuel.get("/query",
                                     listOf("query" to my_chat_view.inputText.toString() +"#"+ email + "#" + auth_name))
                                     .responseJson { _, _, result ->
-
                                         val reply = result.get().obj()
                                                 .getJSONObject("result")
                                                 .getJSONObject("fulfillment")
@@ -212,6 +214,8 @@ class ChatActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
                                                             e.printStackTrace()
                                                         }
                                                     }
+
+                                                    //ChatView 위젯 내에서 응답을 렌더링하려면 다른 Message 개체를 다시 빌드해야  합니
                                                     my_chat_view.send(Message.Builder()
                                                             .setUser(agent)
                                                             .hideIcon(true)
