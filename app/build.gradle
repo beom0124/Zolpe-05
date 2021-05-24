@@ -58,4 +58,6 @@ dependencies {
     implementation 'com.google.firebase:firebase-auth:16.0.3'
     implementation 'com.google.android.gms:play-services-auth:16.0.0'
     implementation 'com.firebaseui:firebase-ui-auth:4.3.2'
+    //firebase DB 연동
+    implementation 'com.google.firebase:firebase-database-ktx'
 }
