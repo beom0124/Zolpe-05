@@ -1,4 +1,3 @@
-
 apply plugin: 'com.android.application'
 apply plugin: 'com.google.gms.google-services'
 apply plugin: 'kotlin-android'
@@ -16,6 +15,7 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        buildConfigField "String", "ACCESS_TOKEN", "\"YOUR_DIALOGFLOW_ACCESS_CODE\""
     }
 
     buildTypes {
@@ -37,6 +37,18 @@ android {
         mlModelBinding true
     }
 
+    lintOptions {
+
+        checkReleaseBuilds false
+
+        // Or, if you prefer, you can continue to check for errors in release builds,
+
+        // but continue the build even when errors are found:
+
+        abortOnError false
+
+    }
+
 }
 
 dependencies {
@@ -51,6 +63,20 @@ dependencies {
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'com.android.support:appcompat-v7.27.1.1'
+    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.2.51"
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+
+    implementation 'io.grpc:grpc-okhttp:1.15.1'
+
+    implementation 'com.google.code.gson:gson:2.8.5'
+    implementation 'commons-io:commons-io:2.6'
+
+
     //noinspection GradleCompatible
     implementation 'com.android.support:design:29.0.0'
     //implementation 'com.google.android.material"materital:1.0.0'
@@ -59,12 +85,44 @@ dependencies {
     //firebase 연동
 
     implementation 'com.google.firebase:firebase-auth:16.0.3'
-    implementation 'com.google.android.gms:play-services-auth:16.0.0'
+    implementation 'com.google.android.gms:play-services-auth:15.0.1'
     implementation 'com.firebaseui:firebase-ui-auth:4.3.2'
     //firebase DB 연동
     implementation 'com.google.firebase:firebase-database-ktx'
 
     implementation 'com.github.kittinunf.fuel:fuel-android:1.12.1'
     implementation 'com.github.bassaer:chatmessageview:1.10.0'
+
+    implementation 'com.google.cloud:google-cloud-dialogflow:0.67.0-alpha'
     //firebase
+
+    implementation 'ai.api:sdk:2.0.7@aar'
+    implementation 'ai.api:libai:1.6.11'
+    //dialogflow SDK dependencies
+
+    implementation 'com.github.kittinunf.fuel:fuel-android:2.0.1'
+    implementation 'com.github.kittinunf.fuel:fuel-json:2.0.1'
+    // Fuel Library
+
+    // ChatMessageView Library
+    implementation 'com.github.bassaer:chatmessageview:1.10.0'
+
+    // Firebase-core
+    implementation 'com.google.firebase:firebase-core:16.0.8'
+    implementation 'com.android.support:support-v4:28.0.0'
+    implementation 'com.android.support:multidex:1.0.3'
+   // implementation 'com.google.android.gms:play-services-location:16.0.0' 위치
+   // implementation 'com.google.android.gms:play-services-maps:16.0.0' 맵
+    implementation 'com.android.support:support-media-compat:28.0.0'
+    implementation 'pub.devrel:easypermissions:0.3.0'
+
+
+    implementation('com.google.api-client:google-api-client-android:1.22.0') {
+        exclude group: 'org.apache.httpcomponents'
+        exclude module: 'guava-jdk5'
+    }
+    implementation('com.google.apis:google-api-services-calendar:v3-rev235-1.22.0') {
+        exclude group: 'org.apache.httpcomponents'
+        exclude module: 'guava-jdk5'
+    }
 }

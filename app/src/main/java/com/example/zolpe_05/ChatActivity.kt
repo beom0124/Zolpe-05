@@ -7,12 +7,18 @@ import android.os.Bundle
 import android.os.Message
 import android.util.Log
 import android.view.MenuItem
+
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+
 import com.github.bassaer.chatmessageview.model.ChatUser
+import com.github.kittinunf.fuel.core.FuelManager
+import com.github.bassaer.chatmessageview.model.Message
+import com.github.kittinunf.fuel.json.responseJson
+
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_chat.*
 import java.io.IOException
@@ -36,7 +42,7 @@ class ChatActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         bottomNavigationView.setOnNavigationItemSelectedListener(this)
 
 
-        //아래는 fuelfillment사용을 위한 작업
+        //아래는 fulfillment사용을 위한 작업인데 왜 자꾸 오류나냐 시발시발개시발
         FuelManager.instance.baseHeaders = mapOf(
             "Authorization" to "Bearer ${BuildConfig.ACCESS_TOKEN}"
         )
@@ -50,7 +56,7 @@ class ChatActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
             "lang" to "ko"                      // Korea language
         )
 
-        GetImage(iconurl)
+        // GetImage(iconurl)
 
         //채팅 인터페이스 구성
         val human = ChatUser(
