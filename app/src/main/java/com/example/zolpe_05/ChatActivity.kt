@@ -20,6 +20,7 @@ import com.github.bassaer.chatmessageview.model.Message
 import com.github.kittinunf.fuel.json.responseJson
 
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.api.client.googleapis.testing.auth.oauth2.MockGoogleCredential.ACCESS_TOKEN
 import kotlinx.android.synthetic.main.activity_chat.*
 import java.io.IOException
 import java.net.URL
@@ -44,14 +45,14 @@ class ChatActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
 
         //아래는 fulfillment사용을 위한 작업인데 왜 자꾸 오류나냐 시발시발개시발
         FuelManager.instance.baseHeaders = mapOf(
-            "Authorization" to "Bearer ${BuildConfig.ACCESS_TOKEN}"
+                "Authorization" to "Bearer $ACCESS_TOKEN"
         )
 
         FuelManager.instance.basePath =
             "https://api.dialogflow.com/v1/"
 
         FuelManager.instance.baseParams = listOf(
-            "v" to "20190403",                  // latest protocol
+            "v" to "20210528",                  // latest protocol
             "sessionId" to UUID.randomUUID(),   // random ID
             "lang" to "ko"                      // Korea language
         )
@@ -68,7 +69,7 @@ class ChatActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
             2,
             "오늘은",
             BitmapFactory.decodeResource(resources,
-                R.mipmap.ic_launcher_today)
+                R.mipmap.ic_launcher_today) //아이콘 넣기
         )
 
         my_chat_view.setRightBubbleColor(ContextCompat.getColor(this, R.color.lightBlue500));
