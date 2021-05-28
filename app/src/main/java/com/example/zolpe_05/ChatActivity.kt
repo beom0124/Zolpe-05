@@ -4,9 +4,23 @@ import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.os.Bundle
-import android.os.Message
 import android.util.Log
 import android.view.MenuItem
+import android.content.Context
+import android.location.*
+import android.net.Uri
+import android.os.*
+import android.speech.RecognizerIntent
+import android.speech.tts.TextToSpeech
+//import android.support.multidex.MultiDex
+import android.view.*
+import android.widget.Button
+//import com.google.android.gms.location.*
+import pub.devrel.easypermissions.EasyPermissions
+import java.lang.Exception
+import java.util.ArrayList
+import java.util.Locale
+import kotlin.concurrent.thread
 
 import android.view.View
 import android.widget.Toast
@@ -18,6 +32,7 @@ import com.github.bassaer.chatmessageview.model.ChatUser
 import com.github.kittinunf.fuel.core.FuelManager
 import com.github.bassaer.chatmessageview.model.Message
 import com.github.kittinunf.fuel.json.responseJson
+import com.github.kittinunf.fuel.Fuel
 
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.api.client.googleapis.testing.auth.oauth2.MockGoogleCredential.ACCESS_TOKEN
@@ -25,6 +40,8 @@ import kotlinx.android.synthetic.main.activity_chat.*
 import java.io.IOException
 import java.net.URL
 import java.util.*
+
+
 
 class ChatActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemSelectedListener{
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,6 +51,7 @@ class ChatActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
 
         lateinit var bitmap: Bitmap
         lateinit var all : Bitmap
+        lateinit var context : Context
 
         actionBar = supportActionBar
         actionBar?.hide()
@@ -73,9 +91,9 @@ class ChatActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         )
 
         my_chat_view.setRightBubbleColor(ContextCompat.getColor(this, R.color.lightBlue500));
-        Log.d("read" , email + auth_name)
+       // Log.d("read" , email + auth_name)
 
-        var welcome = "안녕하세요."+auth_name+"님\n오늘은 입니다.\n처음 사용하신다면 사용법 혹은 이거 어떻게 써 라고 물어보세요 상세히 알려드립니다.." //메세지뷰 처음 입장시 출력
+        var welcome = "안녕하세요.\n오늘의 코디입니다!" //메세지뷰 처음 입장시 출력
 
         //메세지뷰 처음 입장시 출력
         my_chat_view.send(Message.Builder()
@@ -90,7 +108,7 @@ class ChatActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
                 View.OnClickListener {
                     //new message
                     //Set to chat view
-                    context = this@MainActivity
+                  //  context = this@MainActivity
                     var calender : Intent? = null
                     calender = context.packageManager.getLaunchIntentForPackage("com.google.android.calendar")
 
@@ -124,7 +142,6 @@ class ChatActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
                                                             .setText(urlset[0])
                                                             .build()
                                                     )
-                                                    speakOut(urlset[0]);
                                                     Thread.sleep(6000);
                                                     try {
                                                         var url = URL(urlset[1])
@@ -145,7 +162,6 @@ class ChatActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
                                                             .setText(urlset[2])
                                                             .build()
                                                     )
-                                                    speakOut(urlset[2])
                                                 }else if(urlset.size == 4){
                                                     my_chat_view.send(Message.Builder()
                                                             .setUser(agent)
@@ -153,7 +169,6 @@ class ChatActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
                                                             .setText(urlset[0])
                                                             .build()
                                                     )
-                                                    speakOut(urlset[0])
                                                     Thread.sleep(6000);
                                                     for(i in 1..2){
                                                         try {
@@ -177,7 +192,6 @@ class ChatActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
                                                             .setText(urlset[3])
                                                             .build()
                                                     )
-                                                    speakOut(urlset[3])
                                                 }else{
                                                     my_chat_view.send(Message.Builder()
                                                             .setUser(agent)
@@ -185,9 +199,6 @@ class ChatActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
                                                             .setText(urlset[0])
                                                             .build()
                                                     )
-
-                                                    speakOut(urlset[0])
-
                                                     try {
                                                         var url = URL(urlset[urlset.size - 3])
                                                         GetImage_all(url)
@@ -230,7 +241,6 @@ class ChatActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
                                                             .build()
                                                     )
                                                     Thread.sleep(5000)
-                                                    speakOut(urlset[urlset.size - 1])
                                                 }
 
                                             } else {
@@ -266,8 +276,6 @@ class ChatActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
                                                         .setText(reply)
                                                         .build()
                                                 )
-                                                speakOut(reply)
-
                                             }
                                         }
                                     }

@@ -13,7 +13,7 @@ android {
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
-
+        minSdkVersion 16
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         buildConfigField "String", "ACCESS_TOKEN", "\"YOUR_DIALOGFLOW_ACCESS_CODE\""
     }
@@ -115,6 +115,8 @@ dependencies {
    // implementation 'com.google.android.gms:play-services-maps:16.0.0' 맵
     implementation 'com.android.support:support-media-compat:28.0.0'
     implementation 'pub.devrel:easypermissions:0.3.0'
+
+    implementation 'androidx.core:core:1.0.1'
 
 
     implementation('com.google.api-client:google-api-client-android:1.22.0') {
