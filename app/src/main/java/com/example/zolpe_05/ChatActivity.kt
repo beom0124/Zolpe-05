@@ -7,16 +7,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
 import android.content.Context
-import android.location.*
-import android.net.Uri
-import android.os.*
-import android.speech.RecognizerIntent
-import android.speech.tts.TextToSpeech
-//import android.support.multidex.MultiDex
-import android.view.*
-import android.widget.Button
-//import com.google.android.gms.location.*
-import pub.devrel.easypermissions.EasyPermissions
+
 import java.lang.Exception
 import java.util.ArrayList
 import java.util.Locale
