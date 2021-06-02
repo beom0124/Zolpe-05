@@ -48,11 +48,8 @@ class ChatActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         actionBar?.hide()
 
         var bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
-
         bottomNavigationView.setOnNavigationItemSelectedListener(this)
 
-
-        //아래는 fulfillment사용을 위한 작업인데 왜 자꾸 오류나냐 시발시발개시발
         FuelManager.instance.baseHeaders = mapOf(
                 "Authorization" to "Bearer $ACCESS_TOKEN"
         )
