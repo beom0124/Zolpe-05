@@ -55,7 +55,7 @@ class ChatActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         )
 
         FuelManager.instance.basePath =
-            "https://api.dialogflow.com/v1/"
+            "https://api.dialogflow.com/v2/"
 
         FuelManager.instance.baseParams = listOf(
             "v" to "20210528",                  // latest protocol

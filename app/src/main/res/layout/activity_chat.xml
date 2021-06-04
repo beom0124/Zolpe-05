@@ -52,6 +52,13 @@
             android:background="@color/fui_bgGoogle"
             tools:ignore="MissingClass">
 
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/chatFab"
+                android:text="Chat"
+                />
+
         </com.github.bassaer.chatmessageview.view.ChatView>
 
     </FrameLayout>
