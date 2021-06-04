@@ -45,19 +45,19 @@
         android:layout_height="match_parent"
         tools:context="com.tutsplus.dialogflowtutorial.MainActivity">
 
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/chatFab"
+            android:text="Chat"
+            />
+
         <com.github.bassaer.chatmessageview.view.ChatView
             android:id="@+id/my_chat_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/fui_bgGoogle"
             tools:ignore="MissingClass">
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/chatFab"
-                android:text="Chat"
-                />
 
         </com.github.bassaer.chatmessageview.view.ChatView>
 
