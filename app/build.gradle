@@ -13,7 +13,6 @@ android {
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
-        minSdkVersion 16
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         buildConfigField "String", "ACCESS_TOKEN", "\"YOUR_DIALOGFLOW_ACCESS_CODE\""
     }
@@ -71,7 +70,7 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'com.android.support:appcompat-v7.27.1.1'
+    //implementation 'com.android.support:appcompat-v7.27.1.1'
     implementation 'com.android.support.constraint:constraint-layout:1.1.3'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.2.51"
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
@@ -105,7 +104,7 @@ dependencies {
     //dialogflow SDK dependencies
 
     implementation 'com.github.kittinunf.fuel:fuel-android:2.0.1'
-    implementation 'com.github.kittinunf.fuel:fuel-json:2.0.1'
+    //implementation 'com.github.kittinunf.fuel:fuel-json:2.0.1'
     // Fuel Library
 
     // ChatMessageView Library
@@ -113,17 +112,17 @@ dependencies {
 
     // Firebase-core
     implementation 'com.google.firebase:firebase-core:16.0.8'
- //   implementation 'com.android.support:support-v4:28.0.0'
+    //   implementation 'com.android.support:support-v4:28.0.0'
     implementation 'com.android.support:multidex:1.0.3'
-   // implementation 'com.google.android.gms:play-services-location:16.0.0' 위치
-   // implementation 'com.google.android.gms:play-services-maps:16.0.0' 맵
-  //  implementation 'com.android.support:support-media-compat:28.0.0'
+    // implementation 'com.google.android.gms:play-services-location:16.0.0' 위치
+    // implementation 'com.google.android.gms:play-services-maps:16.0.0' 맵
+    //  implementation 'com.android.support:support-media-compat:28.0.0'
     implementation 'pub.devrel:easypermissions:0.3.0'
 
     implementation 'androidx.core:core:1.0.1'
 
     implementation 'com.pusher:pusher-java-client:1.8.1'
-  //  implementation 'com.android.support:recyclerview-v7:27.1.1'
+    //  implementation 'com.android.support:recyclerview-v7:27.1.1'
     implementation 'com.squareup.retrofit2:retrofit:2.4.0'
     implementation 'com.squareup.retrofit2:converter-moshi:2.4.0'
 
@@ -140,4 +139,8 @@ dependencies {
         exclude group: 'org.apache.httpcomponents'
         exclude module: 'guava-jdk5'
     }
+
+    implementation 'com.squareup.retrofit2:retrofit:2.8.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.8.0'
+
 }
