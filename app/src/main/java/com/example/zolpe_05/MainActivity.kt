@@ -17,18 +17,13 @@ import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.Query
 
-//import com.example.firebasedatabase.databinding.ActivityMainBinding
-//import com.google.firebase.firestore.FirebaseFirestore
-//import com.google.firebase.firestore.ktx.firestore
-//import com.google.firebase.ktx.Firebase
-
 val num_of_rows = 10
 val page_no = 1
 val data_type = "JSON"
-val base_time = 2200
-val base_date = 20210604
-val nx = "55"
-val ny = "127"
+val base_time = 2300
+val base_date = 20210605
+val nx = "60"
+val ny = "127" //성북구 삼선동 좌표임
 
 data class WEATHER(
     val response: RESPONSE
@@ -50,9 +45,8 @@ data class ITEMS(
     val item: List<ITEM>
 )
 data class ITEM(
-    val baseData: Int,
-    val baseTime: Int,
-    val category: String
+    val category: String,
+   val fcstValue: String
 )
 
 interface  WeatherInterface{
@@ -66,13 +60,10 @@ interface  WeatherInterface{
         @Query("nx") nx:String,
         @Query("ny") ny:String
     ): Call<WEATHER>
-    //서비스키 인코딩인지 디코딩인지 테스트해봐야함
 }
 
-
-
 val retrofit = Retrofit.Builder()
-    .baseUrl("http://apis.data.go.kr/1360000/VilageFcstInfoService/") //링크 확인 필요
+    .baseUrl("http://apis.data.go.kr/1360000/VilageFcstInfoService/")
     .addConverterFactory(GsonConverterFactory.create())
     .build()
 
@@ -81,6 +72,12 @@ object  ApiObject{
         retrofit.create(WeatherInterface::class.java)
     }
 }
+var weatherResult = emptyList<String>()
+var rainPercent: Int = 0
+var rainStatus: Int = 0
+var skyStatus: Int = 0
+var temp: Int = 0
+var weatherText: String = ""
 
 
 class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemSelectedListener {
@@ -106,18 +103,72 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         call.enqueue(object : retrofit2.Callback<WEATHER>{
             override fun onResponse(call: Call<WEATHER>, response: Response<WEATHER>) {
                 if(response.isSuccessful){
-                    print("여기까지 옴!!!")
-                    //print(response.body().toString())
-                    Log.d("api",response.body().toString())
+                    Log.d("weather",response.body()!!.response.body.items.toString())
+                    weatherResult =response.body()!!.response.body.items.toString().split("(")
+                    setWeatherInfo()
+                    setWeatherText()
                 }
             }
-
             override fun onFailure(call: Call<WEATHER>, t: Throwable) {
                 Log.d("api","api connection error")
             }
         })
+    }
 
+    fun setWeatherInfo(){
+        var rainPercentInfo = weatherResult[2]
+        var rainStatusInfo = weatherResult[3]
+        var skyStatusInfo = weatherResult[5]
+        var tempInfo = weatherResult[6]
+        var find1 = rainPercentInfo.lastIndexOf("=")
+        var find2 = rainPercentInfo.indexOf(")")
+        val find3 = rainStatusInfo.lastIndexOf("=")
+        val find4 = rainStatusInfo.indexOf(")")
+        val find5 = skyStatusInfo.lastIndexOf("=")
+        val find6 = skyStatusInfo.indexOf(")")
+        val find7 = tempInfo.lastIndexOf("=")
+        val find8 = tempInfo.indexOf(")")
+        rainPercent = rainPercentInfo.slice(IntRange(find1+1,find2-1)).toInt()
+        rainStatus = rainStatusInfo.slice(IntRange(find3+1,find4-1)).toInt()
+        skyStatus = skyStatusInfo.slice(IntRange(find5+1,find6-1)).toInt()
+        temp = tempInfo.slice(IntRange(find7+1,find8-1)).toInt()
+    }
 
+    fun setWeatherText(){
+        var rainPercentText: String = ""
+        var rainStatusText: String = ""
+        var skyStatusText: String = ""
+        var tempText: String = ""
+
+        when (rainStatus){
+            0-> rainStatusText  = ""
+            1-> rainStatusText = "비가 내리겠고"
+            2-> rainStatusText = "진눈개비가 날리겠고"
+            3-> rainStatusText = "눈이 내리겠고"
+            4-> rainStatusText = "소나기가 내리겠고"
+            5-> rainStatusText = "빗방울이 날리겠고"
+            6-> rainStatusText = "비와 눈이 날리겠고"
+            7-> rainStatusText = "눈이 날리겠고"
+            else -> rainStatusText = "???"
+        }
+
+        if(rainPercent ==0){
+            rainPercentText = "오늘은 비 소식이 없고"
+        }
+        else{
+            rainPercentText = "오늘은 "+ rainPercent+"%의 확률로 " + rainStatusText
+        }
+
+        when(skyStatus){
+            1-> skyStatusText = "맑은 날씨입니다."
+            3-> skyStatusText = "구름 많은 날씨입니다."
+            4-> skyStatusText = "흐린 날씨입니다."
+            else -> skyStatusText = "???"
+        }
+        tempText = temp.toString() + "°C의 " //온도에 따른 조건문 아직 구현 안 함
+
+        weatherText = rainPercentText + "\n"+ tempText + skyStatusText
+        binding.weatherMessage.setText(weatherText)
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
