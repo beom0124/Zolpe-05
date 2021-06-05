@@ -79,44 +79,9 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.5'
     implementation 'commons-io:commons-io:2.6'
 
-
-    //noinspection GradleCompatible
-    implementation 'com.android.support:design:29.0.0'
-    //implementation 'com.google.android.material"materital:1.0.0'
-    implementation platform('com.google.firebase:firebase-bom:28.0.1')
-    implementation 'com.google.firebase:firebase-analytics-ktx'
-    //firebase 연동
-
-    implementation 'com.google.firebase:firebase-auth:16.0.3'
-    implementation 'com.google.android.gms:play-services-auth:15.0.1'
-    implementation 'com.firebaseui:firebase-ui-auth:4.3.2'
-    //firebase DB 연동
-    implementation 'com.google.firebase:firebase-database-ktx'
-
-    implementation 'com.github.kittinunf.fuel:fuel-android:1.12.1'
-    implementation 'com.github.bassaer:chatmessageview:1.10.0'
-
-    implementation 'com.google.cloud:google-cloud-dialogflow:0.67.0-alpha'
-    //firebase
-
-    implementation 'ai.api:sdk:2.0.7@aar'
-    implementation 'ai.api:libai:1.6.11'
-    //dialogflow SDK dependencies
-
-    implementation 'com.github.kittinunf.fuel:fuel-android:2.0.1'
-    //implementation 'com.github.kittinunf.fuel:fuel-json:2.0.1'
-    // Fuel Library
-
-    // ChatMessageView Library
-    implementation 'com.github.bassaer:chatmessageview:1.10.0'
-
-    // Firebase-core
     implementation 'com.google.firebase:firebase-core:16.0.8'
     //   implementation 'com.android.support:support-v4:28.0.0'
     implementation 'com.android.support:multidex:1.0.3'
-    // implementation 'com.google.android.gms:play-services-location:16.0.0' 위치
-    // implementation 'com.google.android.gms:play-services-maps:16.0.0' 맵
-    //  implementation 'com.android.support:support-media-compat:28.0.0'
     implementation 'pub.devrel:easypermissions:0.3.0'
 
     implementation 'androidx.core:core:1.0.1'
@@ -142,5 +107,18 @@ dependencies {
 
     implementation 'com.squareup.retrofit2:retrofit:2.8.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.8.0'
+
+
+    //firebase database
+    implementation 'com.google.firebase:firebase-database:16.0.2'
+    //firebase ui 사용
+    implementation 'com.firebaseui:firebase-ui-database:3.2.2'
+
+    //dialogflow deps
+    implementation 'ai.api:sdk:2.0.7@aar'
+    annotationProcessor 'ai.api:libai:1.4.8'
+    implementation('ai.api:libai:1.4.8'){
+        exclude module: 'log4j-core'
+    }
 
 }
