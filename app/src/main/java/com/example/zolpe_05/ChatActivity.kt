@@ -1,10 +1,8 @@
 package com.example.zolpe_05
 
 import android.content.Intent
-import android.graphics.Bitmap
 import android.os.Bundle
 import android.view.MenuItem
-import android.content.Context
 import android.widget.Toast
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
@@ -15,11 +13,6 @@ class ChatActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_camera)
         var actionBar : ActionBar?
-
-        lateinit var bitmap: Bitmap
-        lateinit var all : Bitmap
-        lateinit var context : Context
-
         actionBar = supportActionBar
         actionBar?.hide()
 
