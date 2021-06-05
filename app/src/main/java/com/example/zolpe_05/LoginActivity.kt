@@ -43,7 +43,7 @@ class LoginActivity : AppCompatActivity() {
             val signInIntent = googleSignInClient?.getSignInIntent()
             startActivityForResult(signInIntent, RC_SIGN_IN)
         } //구글계정 로그인 버튼 
-        
+
         buttonLogin.setOnClickListener{
             val loginIntent = Intent(this, MainActivity::class.java)
             loginIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK

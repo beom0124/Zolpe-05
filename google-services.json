@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "1044410191600",
+    "firebase_url": "https://zolpe-05-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "zolpe-05",
+    "storage_bucket": "zolpe-05.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1044410191600:android:055128245165160f3dbc35",
+        "android_client_info": {
+          "package_name": "com.example.zolpe_05"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1044410191600-k2cs9u5q86egp48n1r1dnthh5th7cres.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.zolpe_05",
+            "certificate_hash": "fc8ba8c07431765883b56c5ac4ee7796e8346723"
+          }
+        },
+        {
+          "client_id": "1044410191600-uu0eq2nhrmcj7padmc1a5mkotfgl370q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD37jlI2-nTdyD2a6iPFNZfXQNNc7IQ-iQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1044410191600-uu0eq2nhrmcj7padmc1a5mkotfgl370q.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
