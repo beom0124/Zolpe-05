@@ -7,6 +7,8 @@ import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.net.toUri
+import com.bumptech.glide.Glide
 import com.example.zolpe_05.databinding.ActivityMainBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.firestore.FirebaseFirestore
@@ -80,15 +82,15 @@ var rainStatus: Int = 0
 var skyStatus: Int = 0
 var temp: Int = 0
 var weatherText: String = ""
-
+var names = emptyList<String>().toMutableList()
+var prices = emptyList<String>().toMutableList()
+var imgs = emptyList<String>().toMutableList()
 
 class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemSelectedListener {
 
     private val db: FirebaseFirestore = Firebase.firestore
     private val itemsCollectionRef = db.collection("Blazer")
-    var names = emptyList<String>()
-    var prices = emptyList<String>()
-    var imgs = emptyList<String>()
+
 
     val binding by lazy { ActivityMainBinding.inflate(layoutInflater)}
     override  fun onCreate(savedInstanceState: Bundle?) {
@@ -117,7 +119,26 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
                 Log.d("api","api connection error")
             }
         })
+        queryItem("2")
+//        Log.d("queryTest",names[0]+prices[0]+imgs[0])
+//        binding.clothImageView.setImageURI(imgs[0].toUri())
+//        binding.clothName.setText(names[0])
+//        binding.clothPrice.setText(prices[0])
     }
+
+    private fun queryItem(itemID: String) {
+        itemsCollectionRef.document(itemID).get()
+            .addOnSuccessListener { // it: DocumentSnapshot
+                Glide.with(this).load(it["img"].toString().toUri()).into(binding.clothImageView)
+                //binding.clothImageView.setImageURI(it["img"].toString().toUri())
+                binding.clothName.setText(it["name"].toString())
+                binding.clothPrice.setText(it["price"].toString())
+
+            }.addOnFailureListener {
+                Log.d("firestoreError","firestoreError!")
+            }
+    }
+
 
     fun setClothInfo(){
         var tempRef = db.collection("Blazer")
@@ -135,7 +156,6 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
 
         }
         else if(temp in 16..25){
-
         }
         else if(temp >=26){
 
@@ -182,10 +202,10 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
             else -> rainStatusText = "???"
         }
         if(rainPercent ==0){
-            rainPercentText = "오늘은 비 소식이 없고"
+            rainPercentText = "\n오늘은 비 소식이 없고"
         }
         else{
-            rainPercentText = "오늘은 "+ rainPercent+"%의 확률로 " + rainStatusText
+            rainPercentText = "\n오늘은 "+ rainPercent+"%의 확률로 " + rainStatusText
         }
         when(skyStatus){
             1-> skyStatusText = "맑은 날씨입니다."

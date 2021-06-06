@@ -99,8 +99,13 @@ dependencies {
     implementation 'com.google.firebase:firebase-firestore-ktx'
     implementation 'com.google.firebase:firebase-database-ktx'
 
+    //imageView Url
+    implementation 'com.github.bumptech.glide:glide:4.10.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.10.0'
+
 //    //firebase ui 사용
 //   implementation 'com.firebaseui:firebase-ui-database:3.2.2'
+
 
 
 }
