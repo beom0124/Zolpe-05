@@ -46,7 +46,6 @@ android {
         exclude 'META-INF/notice.txt'
         exclude 'META-INF/ASL2.0'
     } //META-INF중복 참조 오류? 해결코드
-
 }
 
 dependencies {
@@ -74,10 +73,10 @@ dependencies {
     implementation 'androidx.core:core:1.0.1'
     implementation 'com.pusher:pusher-java-client:1.8.1'
 
-    //dialogflow
-    implementation 'com.tyagiabhinav:androiddialogflowchatbot:0.1.9'
-    implementation 'com.google.cloud:google-cloud-dialogflow:2.2.0'
-    implementation 'io.grpc:grpc-okhttp:1.31.1'
+    //dialogflow 안 막으면 firestore랑 충돌 일어남
+//    implementation 'com.tyagiabhinav:androiddialogflowchatbot:0.1.9'
+//    implementation 'com.google.cloud:google-cloud-dialogflow:2.2.0'
+//    implementation 'io.grpc:grpc-okhttp:1.31.1'
 
     //날씨 api
     implementation 'com.squareup.retrofit2:retrofit:2.4.0'
@@ -96,9 +95,9 @@ dependencies {
     implementation 'com.google.firebase:firebase-analytics-ktx'
     implementation 'com.google.firebase:firebase-auth:21.0.1'
     implementation 'com.google.firebase:firebase-core:19.0.0'
-//    implementation 'com.google.firebase:firebase-firestore:23.0.1'
-//    implementation 'com.google.firebase:firebase-firestore-ktx'
-//    implementation 'com.google.firebase:firebase-database-ktx'
+    implementation 'com.google.firebase:firebase-firestore:23.0.1'
+    implementation 'com.google.firebase:firebase-firestore-ktx'
+    implementation 'com.google.firebase:firebase-database-ktx'
 
 //    //firebase ui 사용
 //   implementation 'com.firebaseui:firebase-ui-database:3.2.2'

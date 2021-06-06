@@ -9,9 +9,9 @@ import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import com.example.zolpe_05.databinding.ActivityMainBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
-//import com.google.firebase.firestore.FirebaseFirestore
-//import com.google.firebase.firestore.ktx.firestore
-//import com.google.firebase.ktx.Firebase
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import retrofit2.Call
 import retrofit2.Response
 import retrofit2.Retrofit
@@ -84,8 +84,11 @@ var weatherText: String = ""
 
 class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemSelectedListener {
 
-//    private val db: FirebaseFirestore = Firebase.firestore
-//    private val itemsCollectionRef = db.collection("Coat")
+    private val db: FirebaseFirestore = Firebase.firestore
+    private val itemsCollectionRef = db.collection("Blazer")
+    var names = emptyList<String>()
+    var prices = emptyList<String>()
+    var imgs = emptyList<String>()
 
     val binding by lazy { ActivityMainBinding.inflate(layoutInflater)}
     override  fun onCreate(savedInstanceState: Bundle?) {
@@ -117,14 +120,10 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
     }
 
     fun setClothInfo(){
-        var names = emptyList<String>()
-        var prices = emptyList<String>()
-         var imgs = emptyList<String>()
-
-
+        var tempRef = db.collection("Blazer")
         if (temp <= 5){
             if(rainStatus>=1){ //비가오면
-
+                tempRef = db.collection("Trench_Coat")
             }
 
             //itemsCollectionRef = db.collection("Coat")
