@@ -24,7 +24,7 @@ import retrofit2.http.Query
 val num_of_rows = 10
 val page_no = 1
 val data_type = "JSON"
-val base_time = 2000
+val base_time = 2300
 val base_date = 20210606
 val nx = "60"
 val ny = "127" //성북구 삼선동 좌표임
@@ -82,6 +82,7 @@ var rainStatus: Int = 0
 var skyStatus: Int = 0
 var temp: Int = 0
 var weatherText: String = ""
+var clothText: String = ""
 var names = emptyList<String>().toMutableList()
 var prices = emptyList<String>().toMutableList()
 var imgs = emptyList<String>().toMutableList()
@@ -109,34 +110,60 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         call.enqueue(object : retrofit2.Callback<WEATHER>{
             override fun onResponse(call: Call<WEATHER>, response: Response<WEATHER>) {
                 if(response.isSuccessful){
-                    Log.d("weather",response.body()!!.response.body.items.toString()) //날짜, 시간 바꾸면 여기서 뻗음 이유 찾아야해
+                    Log.d("api",response.body()!!.response.body.items.toString()) //날짜, 시간 바꾸면 여기서 뻗음 이유 찾아야해
                     weatherResult =response.body()!!.response.body.items.toString().split("(")
                     setWeatherInfo()
                     setWeatherTextIcon()
+                    setClothText()
+                    binding.clothMessage.setText(clothText)
                 }
             }
             override fun onFailure(call: Call<WEATHER>, t: Throwable) {
                 Log.d("api","api connection error")
             }
         })
-        queryItem("2")
-//        Log.d("queryTest",names[0]+prices[0]+imgs[0])
-//        binding.clothImageView.setImageURI(imgs[0].toUri())
-//        binding.clothName.setText(names[0])
-//        binding.clothPrice.setText(prices[0])
+        setClothImage("2")
+
     }
 
-    private fun queryItem(itemID: String) {
+    fun setClothImage(itemID: String) {
         itemsCollectionRef.document(itemID).get()
             .addOnSuccessListener { // it: DocumentSnapshot
                 Glide.with(this).load(it["img"].toString().toUri()).into(binding.clothImageView)
                 //binding.clothImageView.setImageURI(it["img"].toString().toUri())
                 binding.clothName.setText(it["name"].toString())
                 binding.clothPrice.setText(it["price"].toString())
+                val link = it["link"].toString().toUri()
+                binding.musinsaButton.setOnClickListener(){
+                    val musinsaIntent = Intent(Intent.ACTION_VIEW)
+                    musinsaIntent.setData(link)
+                    startActivity(musinsaIntent)
+                }
 
             }.addOnFailureListener {
-                Log.d("firestoreError","firestoreError!")
+                Log.d("firestore","firestoreError!")
             }
+    }
+
+    fun setClothText(){
+        if(temp<=5){
+            clothText = "날이 춥습니다 코트나 패딩은 어떠신가요?"
+        }
+        else if(temp in 5..15){
+            if(rainStatus>=1){
+                //트랜치
+            }
+
+        }
+        else if(temp in 16..25){
+            clothText = "일교차가 큽니다. 가디건이나 자켓을 챙기세요!"
+        }
+        else if(temp >=26){
+
+        }
+        else{
+            Log.d("tempCloth","temp error!")
+        }
     }
 
 
@@ -168,8 +195,8 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
     fun setWeatherInfo(){
         var rainPercentInfo = weatherResult[2]
         var rainStatusInfo = weatherResult[3]
-        var skyStatusInfo = weatherResult[7] //얘랑 날씨가 5,6값 줘야할때도 있음 왔다갔다혀
-        var tempInfo = weatherResult[8]
+        var skyStatusInfo = weatherResult[5] //얘랑 날씨가 5,6값 줘야할때도 있음 왔다갔다혀
+        var tempInfo = weatherResult[6]
         var find1 = rainPercentInfo.lastIndexOf("=")
         var find2 = rainPercentInfo.indexOf(")")
         val find3 = rainStatusInfo.lastIndexOf("=")
