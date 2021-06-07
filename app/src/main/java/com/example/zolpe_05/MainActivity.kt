@@ -8,7 +8,12 @@ import android.widget.Toast
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.net.toUri
+import com.bumptech.glide.GenericTransitionOptions.with
 import com.bumptech.glide.Glide
+import com.bumptech.glide.Glide.with
+import com.bumptech.glide.annotation.GlideModule;
+import com.bumptech.glide.load.resource.bitmap.BitmapTransitionOptions.with
+import com.bumptech.glide.module.AppGlideModule;
 import com.example.zolpe_05.databinding.ActivityMainBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.firestore.FirebaseFirestore
@@ -24,8 +29,8 @@ import retrofit2.http.Query
 val num_of_rows = 10
 val page_no = 1
 val data_type = "JSON"
-val base_time = 2300
-val base_date = 20210606
+val base_time = 1400
+val base_date = 20210607
 val nx = "60"
 val ny = "127" //성북구 삼선동 좌표임
 
@@ -83,14 +88,14 @@ var skyStatus: Int = 0
 var temp: Int = 0
 var weatherText: String = ""
 var clothText: String = ""
-var names = emptyList<String>().toMutableList()
-var prices = emptyList<String>().toMutableList()
-var imgs = emptyList<String>().toMutableList()
+
+var clothList = emptyList<String>().toMutableList()
 
 class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemSelectedListener {
 
     private val db: FirebaseFirestore = Firebase.firestore
-    private val itemsCollectionRef = db.collection("Blazer")
+    private var itemsCollectionRef = db.collection("Blazer")
+    var clothIndex = 1
 
 
     val binding by lazy { ActivityMainBinding.inflate(layoutInflater)}
@@ -104,7 +109,6 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
 
         var bottomNavigationView = binding.bottomNavigationView
         bottomNavigationView.setOnNavigationItemSelectedListener(this)
-
 
         val call = ApiObject.retrofitService.GetWeather(data_type, num_of_rows, page_no, base_date, base_time, nx, ny)
         call.enqueue(object : retrofit2.Callback<WEATHER>{
@@ -122,21 +126,24 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
                 Log.d("api","api connection error")
             }
         })
-        setClothImage("2")
 
     }
 
-    fun setClothImage(itemID: String) {
-        itemsCollectionRef.document(itemID).get()
+    fun setClothImage(clothId: String, itemId: Int) {
+        var tempId = itemId.toString()
+        itemsCollectionRef = db.collection(clothId)
+        itemsCollectionRef.document(tempId).get()
             .addOnSuccessListener { // it: DocumentSnapshot
                 Glide.with(this).load(it["img"].toString().toUri()).into(binding.clothImageView)
-                //binding.clothImageView.setImageURI(it["img"].toString().toUri())
                 binding.clothName.setText(it["name"].toString())
                 binding.clothPrice.setText(it["price"].toString())
                 val link = it["link"].toString().toUri()
+                val musinsaIntent = Intent(Intent.ACTION_VIEW)
+                musinsaIntent.setData(link)
+                binding.clothImageView.setOnClickListener(){
+                    startActivity(musinsaIntent)
+                }
                 binding.musinsaButton.setOnClickListener(){
-                    val musinsaIntent = Intent(Intent.ACTION_VIEW)
-                    musinsaIntent.setData(link)
                     startActivity(musinsaIntent)
                 }
 
@@ -148,33 +155,36 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
     fun setClothText(){
         if(temp<=5){
             clothText = "날이 춥습니다 코트나 패딩은 어떠신가요?"
+            clothList.add("Coat")
+            clothList.add("Short_padding")
+
         }
-        else if(temp in 5..15){
+        else if(temp in 6..15){
             if(rainStatus>=1){
-                //트랜치
+                clothText = "비가 오내요. 트렌치 코트 어떠신가요?"
+                setClothImage("Trench_Coat",1)
             }
 
         }
-        else if(temp in 16..25){
+        else if(temp in 16..23){
             clothText = "일교차가 큽니다. 가디건이나 자켓을 챙기세요!"
+            setClothImage("Cardigan",5)
         }
-        else if(temp >=26){
+        else if(temp in 24..29){
 
         }
         else{
-            Log.d("tempCloth","temp error!")
+
         }
     }
 
 
     fun setClothInfo(){
-        var tempRef = db.collection("Blazer")
         if (temp <= 5){
             if(rainStatus>=1){ //비가오면
-                tempRef = db.collection("Trench_Coat")
+                itemsCollectionRef = db.collection("Trench_Coat")
             }
-
-            //itemsCollectionRef = db.collection("Coat")
+            itemsCollectionRef = db.collection("Coat")
         }
         else if(temp in 5..15){
             if(rainStatus>=1){
@@ -190,13 +200,31 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         else{
             Log.d("tempCloth","temp error!")
         }
+
     }
 
     fun setWeatherInfo(){
         var rainPercentInfo = weatherResult[2]
         var rainStatusInfo = weatherResult[3]
-        var skyStatusInfo = weatherResult[5] //얘랑 날씨가 5,6값 줘야할때도 있음 왔다갔다혀
-        var tempInfo = weatherResult[6]
+        var skyStatusInfo = ""
+        var tempInfo = ""
+        var findSky1 = weatherResult[7].indexOf("=")
+        var findSky2 = weatherResult[7].indexOf(",")
+        var findSkyResult = weatherResult[7].slice(IntRange(findSky1+1,findSky2-1))
+        if(findSkyResult=="SKY"){
+            skyStatusInfo = weatherResult[7]
+        }
+        else{
+            skyStatusInfo = weatherResult[5]
+        }
+        var findTempResult = weatherResult[8].slice(IntRange(findSky1+1,findSky2-1))
+        if(findTempResult == "T3H"){
+            tempInfo = weatherResult[8]
+        }
+        else{
+            tempInfo = weatherResult[6]
+        }
+
         var find1 = rainPercentInfo.lastIndexOf("=")
         var find2 = rainPercentInfo.indexOf(")")
         val find3 = rainStatusInfo.lastIndexOf("=")
@@ -254,7 +282,7 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
             }
         }
 
-        if(skyStatus == 2){
+        if(skyStatus == 3){
             if(rainStatus ==0){
                 binding.weatherImageView.setImageResource(R.drawable.suncloud)
             }
@@ -266,7 +294,7 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
             }
         }
 
-        if(skyStatus == 3){
+        if(skyStatus == 4){
             if(rainStatus ==0){
                 binding.weatherImageView.setImageResource(R.drawable.cloud)
             }
