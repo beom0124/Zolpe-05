@@ -15,6 +15,7 @@ import com.bumptech.glide.annotation.GlideModule;
 import com.bumptech.glide.load.resource.bitmap.BitmapTransitionOptions.with
 import com.bumptech.glide.module.AppGlideModule;
 import com.example.zolpe_05.databinding.ActivityMainBinding
+import com.example.zolpe_05.ui.ChatActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
