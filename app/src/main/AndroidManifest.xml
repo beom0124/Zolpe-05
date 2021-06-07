@@ -23,7 +23,7 @@
         android:usesCleartextTraffic="true"
         android:theme="@style/Theme.Zolpe05">
         <activity android:name=".CameraActivity"></activity>
-        <activity android:name=".ChatActivity" />
+        <activity android:name=".ui.ChatActivity" />
         <activity android:name=".MainActivity" />
         <activity android:name=".LoginActivity">
             <intent-filter>
