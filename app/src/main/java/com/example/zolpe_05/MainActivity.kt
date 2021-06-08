@@ -30,7 +30,7 @@ import retrofit2.http.Query
 val num_of_rows = 10
 val page_no = 1
 val data_type = "JSON"
-val base_time = 1400
+val base_time = 2300
 val base_date = 20210607
 val nx = "60"
 val ny = "127" //성북구 삼선동 좌표임
@@ -115,6 +115,7 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         call.enqueue(object : retrofit2.Callback<WEATHER>{
             override fun onResponse(call: Call<WEATHER>, response: Response<WEATHER>) {
                 if(response.isSuccessful){
+                    Log.d("api",response.body().toString())
                     Log.d("api",response.body()!!.response.body.items.toString()) //날짜, 시간 바꾸면 여기서 뻗음 이유 찾아야해
                     weatherResult =response.body()!!.response.body.items.toString().split("(")
                     setWeatherInfo()
@@ -127,7 +128,8 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
                 Log.d("api","api connection error")
             }
         })
-
+        Log.d("listResult","로그시작")
+        Log.d("listResult", clothList[1])
     }
 
     fun setClothImage(clothId: String, itemId: Int) {
@@ -155,27 +157,66 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
 
     fun setClothText(){
         if(temp<=5){
-            clothText = "날이 춥습니다 코트나 패딩은 어떠신가요?"
-            clothList.add("Coat")
-            clothList.add("Short_padding")
-
-        }
-        else if(temp in 6..15){
             if(rainStatus>=1){
                 clothText = "비가 오내요. 트렌치 코트 어떠신가요?"
-                setClothImage("Trench_Coat",1)
+                clothList.add("Trench")
+                clothList.add("Umbrella")
             }
+            clothText = "날이 춥습니다 코트나 패딩은 어떠신가요?"
+            clothList.add("Coat")
+            clothList.add("Short_Padding")
+            clothList.add("Hood")
+            clothList.add("MTM")
+            clothList.add("Cotton_Pants")
+            clothList.add("Slacks")
+            clothList.add("Denim")
+        }
+        else if(temp in 6..15){
+            clothText = "일교차가 큽니다. 가디건이나 자켓을 챙기세요!"
+            if(rainStatus>=1){
+                clothText = "비가 오내요. 트렌치 코트 어떠신가요?"
+                clothList.add("Trench")
+                clothList.add("Umbrella")
+            }
+            clothList.add("Blouseon")
+            clothList.add("MA-1")
+            clothList.add("Rider")
+            clothList.add("Blouse")
+            clothList.add("Shirt")
+            clothList.add("Long_Sleeved_Tee")
+            clothList.add("Hood")
+            clothList.add("MTM")
+            clothList.add("Cotton_Pants")
+            clothList.add("Slacks")
+            clothList.add("Denim")
+            clothList.add("Jogger")
+            clothList.add("Skirt")
+            clothList.add("Jumpsuit")
 
         }
         else if(temp in 16..23){
-            clothText = "일교차가 큽니다. 가디건이나 자켓을 챙기세요!"
-            setClothImage("Cardigan",5)
+            clothList.add("Blazer")
+            clothList.add("Blouseon")
+            clothList.add("Cardign")
+            clothList.add("MA-1")
+            clothList.add("Vest")
+            clothList.add("Rider")
+            clothList.add("Blouse")
+            clothList.add("Shirt")
+            clothList.add("Hood")
+            clothList.add("MTM")
+            clothList.add("Cotton_Pants")
+            clothList.add("Slacks")
+            clothList.add("Denim")
+            clothList.add("Jogger")
+            clothList.add("Skirt")
+            clothList.add("Jumpsuit")
+            clothList.add("One_Piece")
         }
         else if(temp in 24..29){
 
         }
         else{
-
         }
     }
 
