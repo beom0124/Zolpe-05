@@ -26,11 +26,12 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Query
+import java.util.Random
 
 val num_of_rows = 10
 val page_no = 1
 val data_type = "JSON"
-val base_time = 2300
+val base_time = 1400
 val base_date = 20210607
 val nx = "60"
 val ny = "127" //성북구 삼선동 좌표임
@@ -128,8 +129,7 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
                 Log.d("api","api connection error")
             }
         })
-        Log.d("listResult","로그시작")
-        Log.d("listResult", clothList[1])
+
     }
 
     fun setClothImage(clothId: String, itemId: Int) {
@@ -218,6 +218,17 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         }
         else{
         }
+
+        Log.d("listResult","로그시작")
+        Log.d("listResult", clothList[1])
+        fun doRandom() {
+            val list_size = clothList.size
+            val random = Random()
+            val cloth_random_num = random.nextInt(list_size)
+            val cloth_random_id = random.nextInt(20)
+            setClothImage(clothList[cloth_random_num], cloth_random_id)
+        }
+        doRandom()
     }
 
 
