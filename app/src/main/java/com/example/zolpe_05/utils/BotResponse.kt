@@ -34,9 +34,9 @@ object BotResponse {
 
             message.contains("오류는 배때문이야") -> {
                 when (random) {
-                    0 -> "어케 알았누 시팔"
+                    0 -> "배때문!"
                     1 -> "배때문이야 배때문이야"
-                    2 -> "배 때문!"
+                    2 -> "어케 알았누 시팔"
                     else -> "error" }
             }
 
