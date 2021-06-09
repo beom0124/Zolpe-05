@@ -31,7 +31,7 @@ import java.util.Random
 val num_of_rows = 10
 val page_no = 1
 val data_type = "JSON"
-val base_time = "0921"
+val base_time = "0800"
 val base_date = 20210609
 val nx = "60"
 val ny = "127" //성북구 삼선동 좌표임
