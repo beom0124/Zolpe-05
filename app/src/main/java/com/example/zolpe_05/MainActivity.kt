@@ -8,12 +8,7 @@ import android.widget.Toast
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.net.toUri
-import com.bumptech.glide.GenericTransitionOptions.with
 import com.bumptech.glide.Glide
-import com.bumptech.glide.Glide.with
-import com.bumptech.glide.annotation.GlideModule;
-import com.bumptech.glide.load.resource.bitmap.BitmapTransitionOptions.with
-import com.bumptech.glide.module.AppGlideModule;
 import com.example.zolpe_05.databinding.ActivityMainBinding
 import com.example.zolpe_05.ui.ChatActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -26,13 +21,14 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Query
-import java.util.Random
+import java.text.SimpleDateFormat
+import java.util.*
 
 val num_of_rows = 10
 val page_no = 1
 val data_type = "JSON"
-val base_time = "0800"
-val base_date = 20210609
+var base_time = "0800"
+var base_date = "20210609"
 val nx = "60"
 val ny = "127" //성북구 삼선동 좌표임
 
@@ -63,13 +59,13 @@ data class ITEM(
 interface  WeatherInterface{
     @GET("getVilageFcst?serviceKey=pbknASs62KuOAXWykoKe2SgYgmbPllEWyGr2X5LrKa9yB2r5FjsJM1VgU%2B1TPy639oL%2FTqj4JM14Z01CpQMlXg%3D%3D")
     fun GetWeather(
-        @Query("dataType") data_type:String,
-        @Query("numOfRows") num_of_rows:Int,
-        @Query("pageNo") page_no:Int,
-        @Query("base_date") base_date:Int,
-        @Query("base_time") base_time:String,
-        @Query("nx") nx:String,
-        @Query("ny") ny:String
+        @Query("dataType") data_type: String,
+        @Query("numOfRows") num_of_rows: Int,
+        @Query("pageNo") page_no: Int,
+        @Query("base_date") base_date: String,
+        @Query("base_time") base_time: String,
+        @Query("nx") nx: String,
+        @Query("ny") ny: String
     ): Call<WEATHER>
 }
 
@@ -97,9 +93,6 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
 
     private val db: FirebaseFirestore = Firebase.firestore
     private var itemsCollectionRef = db.collection("Blazer")
-    var clothIndex = 1
-
-
     val binding by lazy { ActivityMainBinding.inflate(layoutInflater)}
     override  fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -108,17 +101,17 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         var actionBar: ActionBar?
         actionBar = supportActionBar
         actionBar?.hide()
-
         var bottomNavigationView = binding.bottomNavigationView
         bottomNavigationView.setOnNavigationItemSelectedListener(this)
 
+        getDateTime()
         val call = ApiObject.retrofitService.GetWeather(data_type, num_of_rows, page_no, base_date, base_time, nx, ny)
-        call.enqueue(object : retrofit2.Callback<WEATHER>{
+        call.enqueue(object : retrofit2.Callback<WEATHER> {
             override fun onResponse(call: Call<WEATHER>, response: Response<WEATHER>) {
-                if(response.isSuccessful){
-                    Log.d("api",response.body().toString())
-                    Log.d("api",response.body()!!.response.body.items.toString()) //날짜, 시간 바꾸면 여기서 뻗음 이유 찾아야해
-                    weatherResult =response.body()!!.response.body.items.toString().split("(")
+                if (response.isSuccessful) {
+                    Log.d("api", response.body().toString())
+                    Log.d("api", response.body()!!.response.body.items.toString()) //날짜, 시간 바꾸면 여기서 뻗음 이유 찾아야해
+                    weatherResult = response.body()!!.response.body.items.toString().split("(")
                     setWeatherInfo()
                     setWeatherTextIcon()
                     setClothText()
@@ -126,10 +119,51 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
                 }
             }
             override fun onFailure(call: Call<WEATHER>, t: Throwable) {
-                Log.d("api","api connection error")
+                Log.d("api", "api connection error")
             }
         })
 
+    }
+
+    fun getDateTime(){
+        val now: Long = System.currentTimeMillis()
+        val date = Date(now)
+        val dateFormat = SimpleDateFormat("yyyyMMdd")
+        val timeFormat = SimpleDateFormat("HH")
+        val simpleDate = dateFormat.format(date)
+        val simpleTime = timeFormat.format(date)
+
+        base_date = simpleDate.toString()
+        if (simpleTime.toString() == "01" || simpleTime.toString() == "02" || simpleTime.toString() == "03"){
+            base_time = "0200"
+        }
+        else if(simpleTime.toString() == "04" || simpleTime.toString() == "05" || simpleTime.toString() == "06"){
+            base_time = "0500"
+        }
+        else if(simpleTime.toString() == "07" || simpleTime.toString() == "08" || simpleTime.toString() == "09"){
+            base_time = "0800"
+        }
+        else if(simpleTime.toString() == "10" || simpleTime.toString() == "11" || simpleTime.toString() == "12"){
+            base_time = "1100"
+        }
+        else if(simpleTime.toString() == "13" || simpleTime.toString() == "14" || simpleTime.toString() == "15"){
+            base_time = "1400"
+        }
+        else if(simpleTime.toString() == "16" || simpleTime.toString() == "17" || simpleTime.toString() == "18"){
+            base_time = "1700"
+        }
+        else if(simpleTime.toString() == "19" || simpleTime.toString() == "20" || simpleTime.toString() == "21"){
+            base_time = "2000"
+        }
+        else if(simpleTime.toString() == "22" || simpleTime.toString() == "23"){
+            base_time = "2300"
+        }
+        else{
+            base_date = (simpleDate.toInt()-1).toString()
+            base_time = "2300"
+        }
+
+        Log.d("함수작동", base_date+ base_time)
     }
 
     fun setClothImage(clothId: String, itemId: Int) {
@@ -151,7 +185,7 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
                 }
 
             }.addOnFailureListener {
-                Log.d("firestore","firestoreError!")
+                Log.d("firestore", "firestoreError!")
             }
     }
 
@@ -249,9 +283,6 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
             clothList.add("One_Piece")
         }
 
-        Log.d("listResult","로그시작")
-        Log.d("listResult", clothList.size.toString())
-        Log.d("listResult", clothList[1])
         fun doRandom() {
             val list_size = clothList.size
             val random = Random()
@@ -275,14 +306,14 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         var tempInfo = ""
         var findSky1 = weatherResult[7].indexOf("=")
         var findSky2 = weatherResult[7].indexOf(",")
-        var findSkyResult = weatherResult[7].slice(IntRange(findSky1+1,findSky2-1))
+        var findSkyResult = weatherResult[7].slice(IntRange(findSky1 + 1, findSky2 - 1))
         if(findSkyResult=="SKY"){
             skyStatusInfo = weatherResult[7]
         }
         else{
             skyStatusInfo = weatherResult[5]
         }
-        var findTempResult = weatherResult[8].slice(IntRange(findSky1+1,findSky2-1))
+        var findTempResult = weatherResult[8].slice(IntRange(findSky1 + 1, findSky2 - 1))
         if(findTempResult == "T3H"){
             tempInfo = weatherResult[8]
         }
@@ -298,10 +329,10 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         val find6 = skyStatusInfo.indexOf(")")
         val find7 = tempInfo.lastIndexOf("=")
         val find8 = tempInfo.indexOf(")")
-        rainPercent = rainPercentInfo.slice(IntRange(find1+1,find2-1)).toInt()
-        rainStatus = rainStatusInfo.slice(IntRange(find3+1,find4-1)).toInt()
-        skyStatus = skyStatusInfo.slice(IntRange(find5+1,find6-1)).toInt()
-        temp = tempInfo.slice(IntRange(find7+1,find8-1)).toInt()
+        rainPercent = rainPercentInfo.slice(IntRange(find1 + 1, find2 - 1)).toInt()
+        rainStatus = rainStatusInfo.slice(IntRange(find3 + 1, find4 - 1)).toInt()
+        skyStatus = skyStatusInfo.slice(IntRange(find5 + 1, find6 - 1)).toInt()
+        temp = tempInfo.slice(IntRange(find7 + 1, find8 - 1)).toInt()
     }
 
     fun setWeatherTextIcon(){
@@ -311,14 +342,14 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         var tempText: String = ""
 
         when (rainStatus){
-            0-> rainStatusText  = "비가 내릴 가능성이 있고"
-            1-> rainStatusText = "비가 내리겠고"
-            2-> rainStatusText = "진눈개비가 날리겠고"
-            3-> rainStatusText = "눈이 내리겠고"
-            4-> rainStatusText = "소나기가 내리겠고"
-            5-> rainStatusText = "빗방울이 날리겠고"
-            6-> rainStatusText = "비와 눈이 날리겠고"
-            7-> rainStatusText = "눈이 날리겠고"
+            0 -> rainStatusText = "비가 내릴 가능성이 있고"
+            1 -> rainStatusText = "비가 내리겠고"
+            2 -> rainStatusText = "진눈개비가 날리겠고"
+            3 -> rainStatusText = "눈이 내리겠고"
+            4 -> rainStatusText = "소나기가 내리겠고"
+            5 -> rainStatusText = "빗방울이 날리겠고"
+            6 -> rainStatusText = "비와 눈이 날리겠고"
+            7 -> rainStatusText = "눈이 날리겠고"
             else -> rainStatusText = "???"
         }
         if(rainPercent ==0){
@@ -328,9 +359,9 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
             rainPercentText = "\n오늘은 "+ rainPercent+"%의 확률로 " + rainStatusText
         }
         when(skyStatus){
-            1-> skyStatusText = "맑은 날씨입니다."
-            3-> skyStatusText = "구름 많은 날씨입니다."
-            4-> skyStatusText = "흐린 날씨입니다."
+            1 -> skyStatusText = "맑은 날씨입니다."
+            3 -> skyStatusText = "구름 많은 날씨입니다."
+            4 -> skyStatusText = "흐린 날씨입니다."
             else -> skyStatusText = "???"
         }
         tempText = temp.toString() + "°C의 "
@@ -379,7 +410,7 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
 
         when(item.itemId) {
             R.id.home -> {
-                Toast.makeText(this,"이미 메인 화면 입니다",Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "이미 메인 화면 입니다", Toast.LENGTH_SHORT).show()
                 return true
             }
             R.id.camera -> {
