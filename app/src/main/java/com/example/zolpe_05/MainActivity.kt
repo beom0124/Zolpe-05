@@ -31,8 +31,8 @@ import java.util.Random
 val num_of_rows = 10
 val page_no = 1
 val data_type = "JSON"
-val base_time = 2300
-val base_date = 20210608
+val base_time = "0921"
+val base_date = 20210609
 val nx = "60"
 val ny = "127" //성북구 삼선동 좌표임
 
@@ -67,7 +67,7 @@ interface  WeatherInterface{
         @Query("numOfRows") num_of_rows:Int,
         @Query("pageNo") page_no:Int,
         @Query("base_date") base_date:Int,
-        @Query("base_time") base_time:Int,
+        @Query("base_time") base_time:String,
         @Query("nx") nx:String,
         @Query("ny") ny:String
     ): Call<WEATHER>
