@@ -158,7 +158,7 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
     fun setClothText(){
         if(temp<=5){
             if(rainStatus>=1){
-                clothText = "비가 오내요. 트렌치 코트 어떠신가요?"
+                clothText = "비가 오네요. 트렌치 코트 어떠신가요?"
                 clothList.add("Trench")
                 clothList.add("Umbrella")
             }
@@ -174,7 +174,7 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         else if(temp in 6..15){
             clothText = "일교차가 큽니다. 가디건이나 자켓을 챙기세요!"
             if(rainStatus>=1){
-                clothText = "비가 오내요. 트렌치 코트 어떠신가요?"
+                clothText = "비가 오네요. 트렌치 코트 어떠신가요?"
                 clothList.add("Trench")
                 clothList.add("Umbrella")
             }
@@ -195,6 +195,11 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
 
         }
         else if(temp in 16..23){
+            clothText = "일교차가 큽니다. 가디건이나 자켓을 챙기세요!"
+            if(rainStatus>=1){
+                clothText = "비가 오네요! 우산을 챙기세요~"
+                clothList.add("Umbrella")
+            }
             clothList.add("Blazer")
             clothList.add("Blouseon")
             clothList.add("Cardign")
@@ -214,13 +219,34 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
             clothList.add("One_Piece")
         }
         else if(temp in 24..29){
+            if(rainStatus>=1){
+                clothText = "비가 오네요! 우산을 챙기세요~"
+                clothList.add("Umbrella")
+            }
+            clothText = "낮에는 덥다 뭐시기 어쩌구"
             clothList.add("Blouse")
             clothList.add("Shirt")
             clothList.add("Short_Sleeved_Tee")
             clothList.add("Long_Sleeved_Tee")
             clothList.add("Cotton_Pants")
+            clothList.add("Denim")
+            clothList.add("Jogger")
+            clothList.add("Skirt")
+            clothList.add("Slacks")
+            clothList.add("One_Piece")
         }
         else{
+            if(rainStatus>=1){
+                clothText = "비가 오네요! 우산을 챙기세요~"
+                clothList.add("Umbrella")
+            }
+            clothText = "덥다~"
+            clothList.add("Blouse")
+            clothList.add("Shirt")
+            clothList.add("Short_Sleeved_Tee")
+            clothList.add("Short_Pants")
+            clothList.add("Skirt")
+            clothList.add("One_Piece")
         }
 
         Log.d("listResult","로그시작")
@@ -240,31 +266,6 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         binding.rightArrow.setOnClickListener(){
             doRandom()
         }
-    }
-
-
-    fun setClothInfo(){
-        if (temp <= 5){
-            if(rainStatus>=1){ //비가오면
-                itemsCollectionRef = db.collection("Trench_Coat")
-            }
-            itemsCollectionRef = db.collection("Coat")
-        }
-        else if(temp in 5..15){
-            if(rainStatus>=1){
-                //트랜치
-            }
-
-        }
-        else if(temp in 16..25){
-        }
-        else if(temp >=26){
-
-        }
-        else{
-            Log.d("tempCloth","temp error!")
-        }
-
     }
 
     fun setWeatherInfo(){
