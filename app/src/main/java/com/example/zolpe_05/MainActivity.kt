@@ -134,36 +134,36 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         val simpleTime = timeFormat.format(date)
 
         base_date = simpleDate.toString()
-        if (simpleTime.toString() == "01" || simpleTime.toString() == "02" || simpleTime.toString() == "03"){
+        if (simpleTime.toString() == "02" || simpleTime.toString() == "03" || simpleTime.toString() == "04"){
             base_time = "0200"
         }
-        else if(simpleTime.toString() == "04" || simpleTime.toString() == "05" || simpleTime.toString() == "06"){
+        else if(simpleTime.toString() == "05" || simpleTime.toString() == "06" || simpleTime.toString() == "07"){
             base_time = "0500"
         }
-        else if(simpleTime.toString() == "07" || simpleTime.toString() == "08" || simpleTime.toString() == "09"){
+        else if(simpleTime.toString() == "08" || simpleTime.toString() == "09" || simpleTime.toString() == "10"){
             base_time = "0800"
         }
-        else if(simpleTime.toString() == "10" || simpleTime.toString() == "11" || simpleTime.toString() == "12"){
+        else if(simpleTime.toString() == "11" || simpleTime.toString() == "12" || simpleTime.toString() == "13" ){
             base_time = "1100"
         }
-        else if(simpleTime.toString() == "13" || simpleTime.toString() == "14" || simpleTime.toString() == "15"){
+        else if(simpleTime.toString() == "14" || simpleTime.toString() == "15" || simpleTime.toString() == "16"){
             base_time = "1400"
         }
-        else if(simpleTime.toString() == "16" || simpleTime.toString() == "17" || simpleTime.toString() == "18"){
+        else if(simpleTime.toString() == "17" || simpleTime.toString() == "18" || simpleTime.toString() == "19"){
             base_time = "1700"
         }
-        else if(simpleTime.toString() == "19" || simpleTime.toString() == "20" || simpleTime.toString() == "21"){
+        else if( simpleTime.toString() == "20" || simpleTime.toString() == "21" || simpleTime.toString() == "22" ){
             base_time = "2000"
         }
-        else if(simpleTime.toString() == "22" || simpleTime.toString() == "23"){
-            base_time = "2300"
-        }
-        else{
+        else if( simpleTime.toString() == "00" || simpleTime.toString() == "01" ){
             base_date = (simpleDate.toInt()-1).toString()
             base_time = "2300"
         }
+        else{ //23시일때
+             base_time = "2300"
+        }
 
-        Log.d("함수작동", base_date+ base_time)
+        Log.d("api", base_date+ base_time)
     }
 
     fun setClothImage(clothId: String, itemId: Int) {
@@ -201,7 +201,7 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
             clothList.add("Short_Padding")
             clothList.add("Hood")
             clothList.add("MTM")
-            clothList.add("Cotton_Pants")
+            clothList.add("Cotten_Pants")
             clothList.add("Slacks")
             clothList.add("Denim")
         }
@@ -213,6 +213,7 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
                 clothList.add("Umbrella")
             }
             clothList.add("Blouseon")
+            clothList.add("Cardigan")
             clothList.add("MA-1")
             clothList.add("Rider")
             clothList.add("Blouse")
@@ -220,7 +221,7 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
             clothList.add("Long_Sleeved_Tee")
             clothList.add("Hood")
             clothList.add("MTM")
-            clothList.add("Cotton_Pants")
+            clothList.add("Cotten_Pants")
             clothList.add("Slacks")
             clothList.add("Denim")
             clothList.add("Jogger")
@@ -236,7 +237,7 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
             }
             clothList.add("Blazer")
             clothList.add("Blouseon")
-            clothList.add("Cardign")
+            clothList.add("Cardigan")
             clothList.add("MA-1")
             clothList.add("Vest")
             clothList.add("Rider")
@@ -244,13 +245,13 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
             clothList.add("Shirt")
             clothList.add("Hood")
             clothList.add("MTM")
-            clothList.add("Cotton_Pants")
+            clothList.add("Cotten_Pants")
             clothList.add("Slacks")
             clothList.add("Denim")
             clothList.add("Jogger")
             clothList.add("Skirt")
             clothList.add("Jumpsuit")
-            clothList.add("One_Piece")
+            clothList.add("One_piece")
         }
         else if(temp in 24..29){
             if(rainStatus>=1){
@@ -262,12 +263,12 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
             clothList.add("Shirt")
             clothList.add("Short_Sleeved_Tee")
             clothList.add("Long_Sleeved_Tee")
-            clothList.add("Cotton_Pants")
+            clothList.add("Cotten_Pants")
             clothList.add("Denim")
             clothList.add("Jogger")
             clothList.add("Skirt")
             clothList.add("Slacks")
-            clothList.add("One_Piece")
+            clothList.add("One_piece")
         }
         else{
             if(rainStatus>=1){
@@ -280,7 +281,7 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
             clothList.add("Short_Sleeved_Tee")
             clothList.add("Short_Pants")
             clothList.add("Skirt")
-            clothList.add("One_Piece")
+            clothList.add("One_piece")
         }
 
         fun doRandom() {
@@ -288,6 +289,7 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
             val random = Random()
             val cloth_random_num = random.nextInt(list_size)
             val cloth_random_id = random.nextInt(19)+1
+            Log.d("random_num",cloth_random_num.toString()+"  "+cloth_random_id.toString())
             setClothImage(clothList[cloth_random_num], cloth_random_id)
         }
         doRandom()
