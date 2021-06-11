@@ -32,8 +32,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.558"
-        app:strokeColor="#FFFFFF" />
+        app:layout_constraintVertical_bias="0.558" />
 
     <Button
         android:id="@+id/leftArrow"
