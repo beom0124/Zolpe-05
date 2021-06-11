@@ -415,6 +415,8 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
             tempInfo = weatherResult[6]
         }
 
+        //bae
+
         var find1 = rainPercentInfo.lastIndexOf("=")
         var find2 = rainPercentInfo.indexOf(")")
         val find3 = rainStatusInfo.lastIndexOf("=")
