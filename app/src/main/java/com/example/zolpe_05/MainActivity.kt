@@ -509,10 +509,10 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
                 Toast.makeText(this, "이미 메인 화면 입니다", Toast.LENGTH_SHORT).show()
                 return true
             }
-            R.id.camera -> {
-                val cameraIntent = Intent(this, CameraActivity::class.java)
-                cameraIntent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK
-                startActivity(cameraIntent)
+            R.id.magazine -> {
+                val magazineIntent = Intent(this, MagazineActivity::class.java)
+                magazineIntent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK
+                startActivity(magazineIntent)
                 return true
             }
             R.id.chat -> {

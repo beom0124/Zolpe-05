@@ -12,6 +12,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 
 import android.net.Uri
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.zolpe_05.MagazineActivity
 import com.example.zolpe_05.data.Message
 import com.example.zolpe_05.utils.Constants.RECEIVE_ID
 import com.example.zolpe_05.utils.Constants.SEND_ID
@@ -161,10 +162,10 @@ class ChatActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
                 finish()
                 return true
             }
-            R.id.camera -> {
-                val cameraIntent = Intent(this, MainActivity::class.java)
-                cameraIntent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK
-                startActivity(cameraIntent)
+            R.id.magazine -> {
+                val magazineIntent = Intent(this, MagazineActivity::class.java)
+                magazineIntent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK
+                startActivity(magazineIntent)
                 finish()
                 return true
             }

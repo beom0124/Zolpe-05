@@ -3,9 +3,9 @@
 
 
     <item
-        android:id="@+id/camera"
+        android:id="@+id/magazine"
         android:enabled="true"
-        android:title="카메라"
+        android:title="매거진"
         android:icon="@drawable/icon_camera"
 />
 
