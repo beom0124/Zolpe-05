@@ -23,9 +23,9 @@
         android:theme="@style/Theme.Zolpe05"
         android:usesCleartextTraffic="true">
         <activity android:name=".MagazineActivity"></activity>
-        <activity android:name=".CameraActivity" />
         <activity android:name=".ui.ChatActivity" />
         <activity android:name=".MainActivity" />
+        <activity android:name=".SignUpActivitiy"/>
         <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -33,16 +33,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <provider
-            android:name="androidx.core.content.FileProvider"
-            android:authorities="com.example.zolpe_05"
-            android:exported="false"
-            android:grantUriPermissions="true">
-            <meta-data
-                android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_paths" />
-        </provider>
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="8F:B9:3F:CF:F3:C2:7B:03:FC:71:27:2A:C4:E4:2A:53:E9:6C:09:AE" />
     </application>
 
 </manifest>
