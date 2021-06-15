@@ -12,7 +12,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 
 import android.net.Uri
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.zolpe_05.MagazineActivity
+import com.example.zolpe_05.DialogflowManager
 import com.example.zolpe_05.data.Message
 import com.example.zolpe_05.utils.Constants.RECEIVE_ID
 import com.example.zolpe_05.utils.Constants.SEND_ID
@@ -45,6 +45,7 @@ class ChatActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
 
        // val random = (0..3).random()
         customBotMessage("안녕하세요, 오늘의 코디입니다. \n 지금 채팅을 시작해주세요!")
+
     }
 
     private fun clickEvents() {
@@ -97,7 +98,8 @@ class ChatActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
             adapter.insertMessage(Message(message, SEND_ID, timeStamp))
             rv_messages.scrollToPosition(adapter.itemCount - 1)
 
-            botResponse(message)
+
+            //botResponse(message)
         }
     }
 
@@ -162,13 +164,7 @@ class ChatActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
                 finish()
                 return true
             }
-            R.id.magazine -> {
-                val magazineIntent = Intent(this, MagazineActivity::class.java)
-                magazineIntent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK
-                startActivity(magazineIntent)
-                finish()
-                return true
-            }
+
             R.id.chat -> {
                 Toast.makeText(this,"이미 챗봇 메뉴에 있습니다.", Toast.LENGTH_SHORT).show()
                 return true
