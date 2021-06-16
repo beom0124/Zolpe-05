@@ -53,10 +53,12 @@ class MessagingAdapter: RecyclerView.Adapter<MessagingAdapter.MessageViewHolder>
                     text = currentMessage.message
                     visibility = View.VISIBLE
                 }
+               // holder.itemView.imageView.
                 holder.itemView.tv_message.visibility = View.GONE
             }
         }
     }
+
 
     fun insertMessage(message: Message) {
         this.messagesList.add(message)

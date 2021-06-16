@@ -30,5 +30,11 @@
         android:textColor="@color/black"
         android:textSize="14sp" />
 
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_below="@+id/tv_bot_message"
+    ></ImageView>
 
 </RelativeLayout>

@@ -6,19 +6,19 @@ import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.zolpe_05.R
-
 import android.net.Uri
 import android.util.Log
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.zolpe_05.data.Message
+import com.example.zolpe_05.databinding.ActivityChatBinding
 import com.example.zolpe_05.utils.Constants.RECEIVE_ID
 import com.example.zolpe_05.utils.Constants.SEND_ID
-import com.example.zolpe_05.utils.Constants.OPEN_GOOGLE
-import com.example.zolpe_05.utils.Constants.OPEN_SEARCH
 import com.example.zolpe_05.utils.Time
 import kotlinx.android.synthetic.main.activity_chat.*
 import kotlinx.coroutines.*
 import java.lang.Math.random
+
+
 
 class ChatActivity : AppCompatActivity(){
 
@@ -152,22 +152,6 @@ class ChatActivity : AppCompatActivity(){
 
                 //최신 메시지 위치로 스크롤
                 rv_messages.scrollToPosition(adapter.itemCount - 1)
-
-                //구글 시작 -우리 필요한가?
-                when (response) {
-                    OPEN_GOOGLE -> {
-                        val site = Intent(Intent.ACTION_VIEW)
-                        site.data = Uri.parse("https://www.google.com/")
-                        startActivity(site)
-                    }
-                    OPEN_SEARCH -> {
-                        val site = Intent(Intent.ACTION_VIEW)
-                        val searchTerm: String? = message.substringAfterLast("search")
-                        site.data = Uri.parse("https://www.google.com/search?&q=$searchTerm")
-                        startActivity(site)
-                    }
-
-                }
             }
         }
     }
@@ -208,7 +192,7 @@ class ChatActivity : AppCompatActivity(){
             }
         }
 
-        else if(message.contains("날씨")){
+        else if(message.contains("날씨")||message.contains("weather")){
 
             var x =0
             if(temp<=5){
@@ -329,12 +313,30 @@ class ChatActivity : AppCompatActivity(){
                 24-> textToReturn = weatherText+"덥고 구리구리한 날씨에요...ㅠㅠ "+clothList[r]+"가 최적이네요 ㅎㅎ "
                 25-> textToReturn = weatherText+"좋은 날씨네요! "+clothList[r]+"가 좋겠죠?!"
                 26-> textToReturn = weatherText+"날씨가 왜이러죠?"
-                27-> textToReturn = "SomeThing is Worng Bitch!!!"
+                27-> textToReturn = "난수오류!"
 
             }
         }
-        else if(message.contains("추천")){
-            textToReturn = "오늘의 추천 코디는"+clothList[r]+"입니다!"
+        else if(message.contains("추천")||message.contains("코디")||message.contains("recom")){
+            val y = (0..14).random()
+            when(y) {
+
+                0-> textToReturn = "오늘의 추천 코디는"+clothList[r]+"입니다!"
+                1-> textToReturn = clothList[r]+" 같은 옷은 어떠신가요?"
+                2-> textToReturn = "오늘은 "+clothList[r]+" 이 옷을 추천하고 싶네요!"
+                3-> textToReturn = "음... 제가 보기에는 "+clothList[r]+" 이 옷이 괜찮을것 같아요!"
+                4-> textToReturn = "혹시 "+clothList[r]+" 이런 옷은 어떠세요?"
+                5-> textToReturn = "오늘 "+clothList[r]+"이 옷을 입으면 당신도 연예인!"
+                6-> textToReturn = clothList[r]+" 이런 옷도 정말 잘 어울릴꺼 같아요!"
+                7-> textToReturn = "오늘의 코디 추천해드릴께요!"+"\n"+"오늘의 추천 코디는 "+clothList[r]+"입니다!"
+                8-> textToReturn = "5~~늘의 추천 코디는 바로~~~~ "+clothList[r]+"입니다!!!!!"
+                9-> textToReturn = "내 친히 너에게 코오디를 추천 해주겠노라.\n"+clothList[r]+" 이 옷을 하사하겠노라!"
+                10-> textToReturn = clothList[r]+"이 옷 정말 잘어울릴꺼같아요!"
+                11-> textToReturn = "오늘은!! \n"+clothList[r]+"이 옷이 좋겠네요!"
+                12-> textToReturn = "오늘 제가 추천드리고 싶은 코디는 "+clothList[r]+" 이 옷 입니다!"
+                13-> textToReturn = clothList[r]+"이 옷이 오늘 정말 잘 어울릴꺼같아요!"
+                14-> textToReturn = "오늘 추천 코디는 "+clothList[r]+" 이 옷이 잘 어울리겠네요!"
+            }
         }
 
         else if(message.contains("무신사")&&(message.contains("열어")||message.contains("링크"))){
@@ -360,5 +362,8 @@ class ChatActivity : AppCompatActivity(){
         return textToReturn
     }
 
+
+    fun displayImage(){
+    }
 
 }
