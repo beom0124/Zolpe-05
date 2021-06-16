@@ -10,10 +10,10 @@
         android:layout_alignParentEnd="true"
         android:layout_margin="4dp"
         android:background="@drawable/send_round_box"
-        android:backgroundTint="#FF6699"
+        android:backgroundTint="#FFE503"
         android:padding="14dp"
         android:text="This is a sample message that will appear"
-        android:textColor="@android:color/white"
+        android:textColor="@color/black"
         android:textSize="14sp" />
 
     <TextView
@@ -24,10 +24,10 @@
         android:layout_alignParentStart="true"
         android:layout_margin="4dp"
         android:background="@drawable/receive_round_box"
-        android:backgroundTint="#6699FF"
+        android:backgroundTint="#FDFEFF"
         android:padding="14dp"
         android:text="This is a sample message that will appear"
-        android:textColor="@android:color/white"
+        android:textColor="@color/black"
         android:textSize="14sp" />
 
 
