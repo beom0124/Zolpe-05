@@ -6,7 +6,7 @@
         android:id="@+id/magazine"
         android:enabled="true"
         android:title="매거진"
-        android:icon="@drawable/icon_camera"
+        android:icon="@drawable/icon_magazine"
 />
 
     <item
