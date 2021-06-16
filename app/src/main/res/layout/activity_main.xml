@@ -22,30 +22,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/clothName" />
 
-    <Button
-        android:id="@+id/rightArrow"
-        android:layout_width="61dp"
-        android:layout_height="36dp"
-        android:background="@drawable/arrow_left"
-        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
-        app:layout_constraintEnd_toStartOf="@+id/clothImageView"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.558" />
-
-    <Button
-        android:id="@+id/leftArrow"
-        android:layout_width="61dp"
-        android:layout_height="36dp"
-        android:background="@drawable/arrow_right"
-        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/clothImageView"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.558" />
-
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationView"
         android:layout_width="match_parent"
@@ -66,8 +42,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/clothMessage"
-        app:srcCompat="@drawable/manwuzeol" />
+        app:layout_constraintTop_toBottomOf="@+id/clothMessage" />
 
     <TextView
         android:id="@+id/weatherMessage"
@@ -130,6 +105,27 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/clothPrice" />
+
+    <ImageView
+        android:id="@+id/leftArrow"
+        android:layout_width="56dp"
+        android:layout_height="70dp"
+        app:layout_constraintBottom_toTopOf="@+id/clothName"
+        app:layout_constraintEnd_toStartOf="@+id/clothImageView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/clothMessage"
+        app:srcCompat="@drawable/arrow_left" />
+
+    <ImageView
+        android:id="@+id/rightArrow"
+        android:layout_width="56dp"
+        android:layout_height="70dp"
+        android:layout_marginStart="17dp"
+        app:layout_constraintBottom_toTopOf="@+id/clothName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/clothImageView"
+        app:layout_constraintTop_toBottomOf="@+id/clothMessage"
+        app:srcCompat="@drawable/arrow_right" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
