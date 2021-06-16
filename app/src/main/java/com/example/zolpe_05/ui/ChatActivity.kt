@@ -33,6 +33,7 @@ class ChatActivity : AppCompatActivity(){
     var temp = 0
     var listSize =0
     var clothList = emptyList<String>().toMutableList()
+    var categoryTitle = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,13 +46,7 @@ class ChatActivity : AppCompatActivity(){
 
         val actionbar = supportActionBar
         actionbar!!.title = " 오늘의 코디"
-        //actionbar backbutton 설정
         actionbar.setDisplayHomeAsUpEnabled(true)
-        actionbar.setDisplayHomeAsUpEnabled(true)
-
-        //rv_basic_title.adapter = BasicTitleAdapter(this )
-
-
         supportActionBar?.apply {
             //actionbar background color 설정
             setBackgroundDrawable(
@@ -198,7 +193,16 @@ class ChatActivity : AppCompatActivity(){
                 2 -> textToReturn = "무엇이 궁금하신가요?"
             }
         }
-
+        else if(message.contains("캐쥬얼")||message.contains("캐주얼")||message.contains("케쥬얼")||message.contains("케주얼")||message.contains("캐듀얼")||message.contains("케듀얼")||message.contains(" Cadual")||message.contains("cadual")||message.contains("무난")||message.contains("평범")||message.contains("캠퍼스")||message.contains("켐퍼스")||message.contains("대학생")||message.contains("Campus")||message.contains("campus")||message.contains("학교")||message.contains("대학교")||message.contains("대딩")||message.contains("개강")||message.contains("댄디")||message.contains("덴디")||message.contains("Dandy")||message.contains("dand")||message.contains("멋")||message.contains("우아")||message.contains("데이트")||message.contains("대이트")||message.contains("date")||message.contains("Date")||message.contains("파티")||message.contains("소개팅")||message.contains("축제")||message.contains("페스티벌")||message.contains("스포츠")||message.contains("운동")||message.contains("Sport")||message.contains("sport")||message.contains("런닝")||message.contains("체육")||message.contains("헬스")||message.contains("스트릿")||message.contains("Street")||message.contains("street")||message.contains("유행")||message.contains("비즈니스")||message.contains("비지니스")||message.contains("Business")||message.contains("business")||message.contains("회사")||message.contains("입사")||message.contains("일")||message.contains("정장")||message.contains("면접")){
+            val r_k = (0..4).random()
+            when(r_k){
+                0-> textToReturn = "이런 조합은 어떠신가요?"
+                1-> textToReturn = "이런 옷은 마음에 드시나요?"
+                2-> textToReturn = "이렇게 입어보시는 것은 어떠신가요?"
+                3-> textToReturn = "이렇게 입어보는 것도 좋을 것 같은데요?!"
+                4-> textToReturn = "이런 패션 어때요?"
+            }
+        }
         else if(message.contains("날씨")||message.contains("weather")){
 
             var x =0
@@ -347,7 +351,10 @@ class ChatActivity : AppCompatActivity(){
         }
 
         else if(message.contains("무신사")&&(message.contains("열어")||message.contains("링크"))){
-            //웹페이지 열기
+//            val site = Intent(Intent.ACTION_VIEW)
+//            site.flags = Inte
+//            site.data = Uri.parse("https://store.musinsa.com/app/")
+//            startActivity(site)
         }
 
 
@@ -369,8 +376,5 @@ class ChatActivity : AppCompatActivity(){
         return textToReturn
     }
 
-
-    fun displayImage(){
-    }
 
 }
