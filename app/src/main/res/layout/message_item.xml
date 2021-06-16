@@ -35,6 +35,8 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_below="@+id/tv_bot_message"
-    ></ImageView>
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="4dp"></ImageView>
 
 </RelativeLayout>

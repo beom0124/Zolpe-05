@@ -82,9 +82,6 @@ object  ApiObject{
 }
 var weatherResult = emptyList<String>()
 
-
-
-
 var clothList = emptyList<String>().toMutableList()
 
 class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemSelectedListener {
@@ -171,9 +168,8 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
     }
 
     fun setClothImage(clothId: String, itemId: Int) {
-        var tempId = itemId.toString()
         itemsCollectionRef = db.collection(clothId)
-        itemsCollectionRef.document(tempId).get()
+        itemsCollectionRef.document(itemId.toString()).get()
             .addOnSuccessListener { // it: DocumentSnapshot
                 Glide.with(this).load(it["img"].toString().toUri()).into(binding.clothImageView)
                 binding.clothName.setText(it["name"].toString())

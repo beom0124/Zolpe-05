@@ -8,7 +8,10 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.zolpe_05.R
 import android.net.Uri
 import android.util.Log
+import android.widget.ImageView
+import androidx.core.net.toUri
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
 import com.example.zolpe_05.data.Message
 import com.example.zolpe_05.databinding.ActivityChatBinding
 import com.example.zolpe_05.utils.Constants.RECEIVE_ID
@@ -45,6 +48,9 @@ class ChatActivity : AppCompatActivity(){
         //actionbar backbutton 설정
         actionbar.setDisplayHomeAsUpEnabled(true)
         actionbar.setDisplayHomeAsUpEnabled(true)
+
+        //rv_basic_title.adapter = BasicTitleAdapter(this )
+
 
         supportActionBar?.apply {
             //actionbar background color 설정
@@ -175,6 +181,7 @@ class ChatActivity : AppCompatActivity(){
         var textToReturn = ""
         var weatherText = ""
         var temp = 0
+
         var r = (0..listSize).random()
         if(intent.hasExtra("weatherText")){
             weatherText = intent.getStringExtra("weatherText").toString()
