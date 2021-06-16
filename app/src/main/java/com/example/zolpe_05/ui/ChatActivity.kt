@@ -8,8 +8,8 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.zolpe_05.R
 
 import android.net.Uri
+import android.util.Log
 import androidx.recyclerview.widget.LinearLayoutManager
-//import com.example.zolpe_05.DialogflowManager
 import com.example.zolpe_05.data.Message
 import com.example.zolpe_05.utils.Constants.RECEIVE_ID
 import com.example.zolpe_05.utils.Constants.SEND_ID
@@ -18,12 +18,18 @@ import com.example.zolpe_05.utils.Constants.OPEN_SEARCH
 import com.example.zolpe_05.utils.Time
 import kotlinx.android.synthetic.main.activity_chat.*
 import kotlinx.coroutines.*
+import java.lang.Math.random
 
 class ChatActivity : AppCompatActivity(){
 
     var messagesList = mutableListOf<Message>()
 
     private lateinit var adapter: MessagingAdapter
+
+    var weatherText = ""
+    var temp = 0
+    var listSize =0
+    var clothList = emptyList<String>().toMutableList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,6 +54,25 @@ class ChatActivity : AppCompatActivity(){
                 )
             )
         }
+
+
+        if(intent.hasExtra("weatherText")){
+            weatherText = intent.getStringExtra("weatherText").toString()
+        }
+        if(intent.hasExtra("temp")){
+            temp = intent.getIntExtra("temp",0)
+        }
+        if(intent.hasExtra("listSize")){
+            listSize = intent.getIntExtra("listSize",0)
+        }
+        for (i in 0..listSize-1){
+            var index = "clothName"+i.toString()
+            var tempString = ""
+            tempString = intent.getStringExtra(index).toString()
+            clothList.add(tempString)
+        }
+
+
 
     }
 
@@ -166,14 +191,15 @@ class ChatActivity : AppCompatActivity(){
         var textToReturn = ""
         var weatherText = ""
         var temp = 0
+        var r = (0..listSize).random()
         if(intent.hasExtra("weatherText")){
             weatherText = intent.getStringExtra("weatherText").toString()
         }
         if(intent.hasExtra("temp")){
             temp = intent.getIntExtra("temp",temp)
         }
+        if(message.contains("안녕")||message.contains("하이")){
 
-        if(message.contains("안녕")){
             val random = (0..2).random()
             when(random){
                 0 -> textToReturn = "안녕하세요! 오늘의 코디입니다~"
@@ -182,11 +208,136 @@ class ChatActivity : AppCompatActivity(){
             }
         }
 
-        if(message.contains("날씨")){
-            textToReturn = weatherText
+        else if(message.contains("날씨")){
+
+            var x =0
+            if(temp<=5){
+                if(weatherText.contains("맑")){
+                    x = 1
+                }
+                else if(weatherText.contains("비")){
+                    x = 2
+                }
+                else if(weatherText.contains("흐림")){
+                    x = 3
+                }
+                else if(weatherText.contains("구름")){
+                    x = 4
+                }
+                else if(weatherText.contains("눈")){
+                    x = 5
+                }
+                else {
+                    x = 6
+                }
+            }
+            else if(temp>5||temp<=15){
+                if(weatherText.contains("맑")){
+                    x = 7
+                }
+                else if(weatherText.contains("비")){
+                    x = 8
+                }
+                else if(weatherText.contains("흐림")){
+                    x = 9
+                }
+                else if(weatherText.contains("구름")){
+                    x = 10
+                }
+                else {
+                    x = 11
+                }
+            }
+            else if(temp>15||temp<=23){
+                if(weatherText.contains("맑")){
+                    x = 12
+                }
+                else if(weatherText.contains("비")){
+                    x = 13
+                }
+                else if(weatherText.contains("흐림")){
+                    x = 14
+                }
+                else if(weatherText.contains("구름")){
+                    x = 15
+                }
+                else {
+                    x = 16
+                }
+            }
+            else if(temp>23||temp<=29){
+                if(weatherText.contains("맑")){
+                    x = 17
+                }
+                else if(weatherText.contains("비")){
+                    x = 18
+                }
+                else if(weatherText.contains("흐")){
+                    x = 19
+                }
+                else if(weatherText.contains("구름")){
+                    x = 20
+                }
+                else {
+                    x = 21
+                }
+            }
+            else if(temp>29){
+                if(weatherText.contains("맑")){
+                    x = 22
+                }
+                else if(weatherText.contains("비")){
+                    x = 23
+                }
+                else if(weatherText.contains("흐림")){
+                    x = 24
+                }
+                else if(weatherText.contains("구름")){
+                    x = 25
+                }
+                else {
+                    x = 26
+                }
+            }
+            else{
+                x = 27
+            }
+            when(x){
+                1-> textToReturn = weatherText+"이런 추운 날씨에는 "+clothList[r]+"가 좋을것 같아요!"
+                2-> textToReturn = weatherText+"이런 춥고 비가 오는 날씨에는 "+clothList[r]+"가 낫겠죠?!"
+                3-> textToReturn = weatherText+"이런 춥고 흐린 날씨에는 "+clothList[r]+"가 딱이죠!ㅎㅎ"
+                4-> textToReturn = weatherText+"이런 춥고 구름있는 날씨에는 "+clothList[r]+" 어때요?"
+                5-> textToReturn = weatherText+"이런 춥고 눈이오는 날씨에는 당연히 "+clothList[r]+"죠!"
+                6-> textToReturn = weatherText+"날씨가 왜이러죠?!!"
+                7-> textToReturn = weatherText+"날씨가 좀 쌀쌀하니 "+clothList[r]+" 어떤가요?"
+                8-> textToReturn = weatherText+"이렇게 쌀쌀하고 비내리는 날씨에는 "+clothList[r]+"가 좋겠어요 ㅎㅎ"
+                9-> textToReturn = weatherText+"흐리고 쌀쌀하니 "+clothList[r]+"가 좋을것 같아요!"
+                10-> textToReturn = weatherText+"쌀쌀한데 구름이 좀 많으니"+clothList[r]+"가 좋겠네요!"
+                11-> textToReturn = weatherText+"날씨가 왜이러죠?"
+                12-> textToReturn = weatherText+"선선하니 "+clothList[r]+"가 좋을것 같아요!"
+                13-> textToReturn = weatherText+"비가오니 일교차가 클꺼같아요! "+clothList[r]+"는(은) 챙기는게 좋겠어요!"
+                14-> textToReturn = weatherText+"우중충 하니 감기 조심해야해요! "+clothList[r]+"챙겨서 감기 조심하세요!"
+                15-> textToReturn = weatherText+"선선하니 "+clothList[r]+"가 좋을것 같아요!"
+                16-> textToReturn = weatherText+"날씨가 왜이러죠?"
+                17-> textToReturn = weatherText+"따듯하네요! "+clothList[r]+"가 좋을것 같아요!"
+                18-> textToReturn = weatherText+"따듯한데 비가 오니 "+clothList[r]+" 어때요?"
+                19-> textToReturn = weatherText+"날씨가 구리네요... "+clothList[r]+" 어떤가요?!"
+                20-> textToReturn = weatherText+"좋은 날씨에요! "+clothList[r]+"가 좋을것 같아요!"
+                21-> textToReturn = weatherText+"날씨가 왜이러죠?"
+                22-> textToReturn = weatherText+"좋은 날씨지만 매우 더워요! "+clothList[r]+"로 시원하게!"
+                23-> textToReturn = weatherText+"으 찝찝한데요... "+clothList[r]+" 입어서 기분전환 어때요?!"
+                24-> textToReturn = weatherText+"덥고 구리구리한 날씨에요...ㅠㅠ "+clothList[r]+"가 최적이네요 ㅎㅎ "
+                25-> textToReturn = weatherText+"좋은 날씨네요! "+clothList[r]+"가 좋겠죠?!"
+                26-> textToReturn = weatherText+"날씨가 왜이러죠?"
+                27-> textToReturn = "SomeThing is Worng Bitch!!!"
+
+            }
+        }
+        else if(message.contains("추천")){
+            textToReturn = "오늘의 추천 코디는"+clothList[r]+"입니다!"
         }
 
-        if(message.contains("무신사")&&message.contains("열어")){
+        else if(message.contains("무신사")&&(message.contains("열어")||message.contains("링크"))){
             //웹페이지 열기
         }
 
@@ -195,6 +346,9 @@ class ChatActivity : AppCompatActivity(){
             val random = (0..2).random()
             if(message.contains("dialogflow")){
                 return "1891208 배수빈"
+            }
+            if(message.contains("충성")){
+                return "잘 못 들었습니다?"
             }
             when(random){
                 0-> textToReturn = "학습되지 않은 말입니다!"

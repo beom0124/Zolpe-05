@@ -104,9 +104,6 @@ dependencies {
     implementation 'com.github.bumptech.glide:glide:4.10.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.10.0'
 
-//    //firebase ui 사용
-//   implementation 'com.firebaseui:firebase-ui-database:3.2.2'
-
     //RecyclerView
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
 
@@ -119,14 +116,4 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-extensions:2.2.0"
     implementation "androidx.lifecycle:lifecycle-common-java8:2.2.0"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0"
-
-//    //Bae's Gradle ->
-//    implementation 'com.google.cloud:google-cloud-dialogflow:0.92.0-alpha' //dialogflow 사용
-//    implementation 'ai.api:sdk:2.0.7@aar' //api사용
-//    implementation 'ai.api:libai:1.6.12'
-//    implementation 'com.google.protobuf:protobuf-java:3.7.1'
-
-    //Duplicate class com.google.api.Advice found in modules jetified-proto-google-common-protos-1.15.0 (com.google.api.grpc:proto-google-common-protos:1.15.0) and jetified-protolite-well-known-types-18.0.0-runtime (com.google.firebase:protolite-well-known-types:18.0.0)
-    //sync는 성공적으로 되는데 돌려보면 위에 충돌 오류가 뜸
-
 }

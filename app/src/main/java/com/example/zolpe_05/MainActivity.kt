@@ -246,7 +246,7 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
                 clothList.add("Umbrella")
             }
             else if(skyStatus==1){
-                clothText="날이 좀 쌀쌀하지만 맑은 날씨에요! 푸근하게 MA-1을 입어보시는것은 어때요?"
+                clothText="날이 좀 쌀쌀하지만 맑은 날씨에요! 포근하게 MA-1을 입어보시는것은 어때요?"
             }
             else if(skyStatus==3){
                 clothText="날이 쌀쌀하고 구름이 조금 있네요~ 라이더 자켓을 입어보시는 것은 어때요?"
@@ -523,6 +523,12 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
                 val chatIntent = Intent(this, ChatActivity::class.java)
                 chatIntent.putExtra("weatherText",weatherText)
                 chatIntent.putExtra("temp",temp)
+                chatIntent.putExtra("listSize", clothList.size)
+                for(i in 0..clothList.size-1){
+                    var name = "clothName"+i.toString()
+                    var value = clothList[i]
+                    chatIntent.putExtra(name,value)
+                }
                 chatIntent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK
                 startActivity(chatIntent)
                 return true
