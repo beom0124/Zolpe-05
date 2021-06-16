@@ -42,7 +42,7 @@ class ChatActivity : AppCompatActivity(){
         customBotMessage("안녕하세요, 오늘의 코디입니다. \n 지금 채팅을 시작해주세요!")
 
         val actionbar = supportActionBar
-        actionbar!!.title = " "
+        actionbar!!.title = " 오늘의 코디"
         //actionbar backbutton 설정
         actionbar.setDisplayHomeAsUpEnabled(true)
         actionbar.setDisplayHomeAsUpEnabled(true)
@@ -51,7 +51,7 @@ class ChatActivity : AppCompatActivity(){
             //actionbar background color 설정
             setBackgroundDrawable(
                 ColorDrawable(
-                    Color.parseColor("#000000")
+                    Color.parseColor("#0D0463")
                 )
             )
         }
