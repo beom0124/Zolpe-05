@@ -4,22 +4,15 @@ import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.view.MenuItem
-import android.widget.Toast
-import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
-import com.example.zolpe_05.MainActivity
 import com.example.zolpe_05.R
-import com.google.android.material.bottomnavigation.BottomNavigationView
 
 import android.net.Uri
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.zolpe_05.MagazineActivity
 //import com.example.zolpe_05.DialogflowManager
 import com.example.zolpe_05.data.Message
 import com.example.zolpe_05.utils.Constants.RECEIVE_ID
 import com.example.zolpe_05.utils.Constants.SEND_ID
-import com.example.zolpe_05.utils.BotResponse
 import com.example.zolpe_05.utils.Constants.OPEN_GOOGLE
 import com.example.zolpe_05.utils.Constants.OPEN_SEARCH
 import com.example.zolpe_05.utils.Time
@@ -112,8 +105,6 @@ class ChatActivity : AppCompatActivity(){
 
             adapter.insertMessage(Message(message, SEND_ID, timeStamp))
             rv_messages.scrollToPosition(adapter.itemCount - 1)
-
-
             botResponse(message)
         }
     }
@@ -127,7 +118,7 @@ class ChatActivity : AppCompatActivity(){
 
             withContext(Dispatchers.Main) {
                 //응답 받아오기
-                val response = BotResponse.basicResponses(message)
+                val response = basicResponses(message)
 
                 //리스트에 추가
                 messagesList.add(Message(response, RECEIVE_ID, timeStamp))
@@ -157,7 +148,6 @@ class ChatActivity : AppCompatActivity(){
     }
 
     private fun customBotMessage(message: String) {
-
         GlobalScope.launch {
             delay(1000)
             withContext(Dispatchers.Main) {
@@ -169,4 +159,52 @@ class ChatActivity : AppCompatActivity(){
             }
         }
     }
+
+    fun basicResponses(_message: String): String {
+
+        val message =_message.toLowerCase()
+        var textToReturn = ""
+        var weatherText = ""
+        var temp = 0
+        if(intent.hasExtra("weatherText")){
+            weatherText = intent.getStringExtra("weatherText").toString()
+        }
+        if(intent.hasExtra("temp")){
+            temp = intent.getIntExtra("temp",temp)
+        }
+
+        if(message.contains("안녕")){
+            val random = (0..2).random()
+            when(random){
+                0 -> textToReturn = "안녕하세요! 오늘의 코디입니다~"
+                1 -> textToReturn = "오늘의 코디입니다!"
+                2 -> textToReturn = "무엇이 궁금하신가요?"
+            }
+        }
+
+        if(message.contains("날씨")){
+            textToReturn = weatherText
+        }
+
+        if(message.contains("무신사")&&message.contains("열어")){
+            //웹페이지 열기
+        }
+
+
+        else{
+            val random = (0..2).random()
+            if(message.contains("dialogflow")){
+                return "1891208 배수빈"
+            }
+            when(random){
+                0-> textToReturn = "학습되지 않은 말입니다!"
+                1-> textToReturn = "다시 말씀해주세요!"
+                2-> textToReturn = "이해하지 못 했어요"
+            }
+        }
+
+        return textToReturn
+    }
+
+
 }

@@ -1,5 +1,6 @@
 package com.example.zolpe_05
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -80,17 +81,20 @@ object  ApiObject{
     }
 }
 var weatherResult = emptyList<String>()
-var rainPercent: Int = 0
-var rainStatus: Int = 0
-var skyStatus: Int = 0
-var temp: Int = 0
-var weatherText: String = ""
-var clothText: String = ""
+
+
+
 
 var clothList = emptyList<String>().toMutableList()
 
 class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemSelectedListener {
 
+    var weatherText: String = ""
+    var clothText: String = ""
+    var temp: Int = 0
+    var rainPercent: Int = 0
+    var rainStatus: Int = 0
+    var skyStatus: Int = 0
     private val db: FirebaseFirestore = Firebase.firestore
     private var itemsCollectionRef = db.collection("Blazer")
     val binding by lazy { ActivityMainBinding.inflate(layoutInflater)}
@@ -517,6 +521,8 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
             }
             R.id.chat -> {
                 val chatIntent = Intent(this, ChatActivity::class.java)
+                chatIntent.putExtra("weatherText",weatherText)
+                chatIntent.putExtra("temp",temp)
                 chatIntent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK
                 startActivity(chatIntent)
                 return true
