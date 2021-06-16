@@ -12,7 +12,8 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 
 import android.net.Uri
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.zolpe_05.DialogflowManager
+import com.example.zolpe_05.MagazineActivity
+//import com.example.zolpe_05.DialogflowManager
 import com.example.zolpe_05.data.Message
 import com.example.zolpe_05.utils.Constants.RECEIVE_ID
 import com.example.zolpe_05.utils.Constants.SEND_ID
@@ -167,6 +168,14 @@ class ChatActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
 
             R.id.chat -> {
                 Toast.makeText(this,"이미 챗봇 메뉴에 있습니다.", Toast.LENGTH_SHORT).show()
+                return true
+            }
+
+            R.id.magazine -> {
+                val homeIntent = Intent(this, MagazineActivity::class.java)
+                homeIntent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK
+                startActivity(homeIntent)
+                finish()
                 return true
             }
         }

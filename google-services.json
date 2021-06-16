@@ -15,11 +15,11 @@
       },
       "oauth_client": [
         {
-          "client_id": "1044410191600-k2cs9u5q86egp48n1r1dnthh5th7cres.apps.googleusercontent.com",
+          "client_id": "1044410191600-n8crhj36a42s4mpfh3ch5d2qtjcmea92.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.example.zolpe_05",
-            "certificate_hash": "fc8ba8c07431765883b56c5ac4ee7796e8346723"
+            "certificate_hash": "8fb93fcff3c27b03fc71272ac4e42a53e96c09ae"
           }
         },
         {
