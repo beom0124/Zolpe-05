@@ -160,7 +160,7 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
             base_time = "2300"
         }
         else{ //23시일때
-             base_time = "2300"
+            base_time = "2300"
         }
 
         Log.d("api", base_date+ base_time)
@@ -192,31 +192,31 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
     fun setClothText(){
         if(temp<=5){
             if(skyStatus==1){
-                clothText = "날이 많이 춥지만 맑은 날씨네요! 따듯하게 코트를 입어보는 것은 어떠신가요?"
+                clothText = "날이 많이 춥지만 맑은 날씨네요! 따뜻하게 코트를 입어보는 것은 어떠신가요?"
             }
             else if(skyStatus==3){
-                clothText = "날이 많이 춥고 구름이 많네요.. 따듯하게 숏패딩를 입어보는 것은 어떠신가요?"
+                clothText = "날이 많이 춥고 구름이 많네요.. 따뜻하게 숏패딩를 입어보는 것은 어떠신가요?"
             }
             else if(skyStatus==4){
-                clothText = "날이 많이 춥고 흐려서 우중충 하네요~ 따듯하게 숏패딩를 입어보는 것은 어떠신가요?"
+                clothText = "날이 많이 춥고 흐려서 우중충 하네요~ 따뜻하게 숏패딩를 입어보는 것은 어떠신가요?"
             }
             else if(rainStatus==1||rainStatus==4){
-                clothText = "많이 추운 날씨에 비가 주륵주륵 내려요.. 따듯하게 트렌치 코트를 입어보는 것은 어떠신가요? 우산은 꼭 챙기세요!"
+                clothText = "많이 추운 날씨에 비가 주륵주륵 내려요.. 따뜻하게 트렌치 코트를 입어보는 것은 어떠신가요? 우산은 꼭 챙기세요!"
                 clothList.add("Trench")
                 clothList.add("Umbrella")
             }
             else if(rainStatus==3||rainStatus==2){
-                clothText = "날이 춥고 눈이 내려 세상이 하얗네요! 따듯하게 코트를 입어보는 것은 어떠신가요? 우산을 쓰는 것도 좋을것 같아요~"
+                clothText = "날이 춥고 눈이 내려 세상이 하얗네요! 따뜻하게 코트를 입어보는 것은 어떠신가요? 우산을 쓰는 것도 좋을것 같아요~"
                 clothList.add("Coat")
                 clothList.add("Umbrella")
             }
             else if(rainStatus==5){
-                clothText = "날도 많이 춥고 빗방울이 날리는 날이에요! 따듯하게 숏패딩을 입어보는 것은 어떠신가요? 우산은 챙기는게 좋을 듯 해요~!"
+                clothText = "날도 많이 춥고 빗방울이 날리는 날이에요! 따뜻하게 숏패딩을 입어보는 것은 어떠신가요? 우산은 챙기는게 좋을 듯 해요~!"
                 clothList.add("short_Padding")
                 clothList.add("Umbrella")
             }
             else if(rainStatus==6||rainStatus==7){
-                clothText="날이 춥고 눈발이 조금 날리는 날이에요! 따듯하게 코트를 입어보는 것은 어떠신가요?"
+                clothText="날이 춥고 눈발이 조금 날리는 날이에요! 따뜻하게 코트를 입어보는 것은 어떠신가요?"
                 clothList.add("Coat")
             }
             else{
@@ -251,7 +251,7 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
                 clothText="날이 쌀쌀하고 흐려서 어둑어둑 하네요... 트렌치 코트를 입어보시는 것은 어때요?"
             }
             else{
-                clothText = "일교차가 큽니다. 자켓이나 코트같은 따듯한 것을 입고 감기 예방하세요!"
+                clothText = "일교차가 큽니다. 자켓이나 코트같은 따뜻한 것을 입고 감기 예방하세요!"
             }
             clothList.add("Blouseon")
             clothList.add("Cardigan")
@@ -259,7 +259,7 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
             clothList.add("Rider")
             clothList.add("Blouse")
             clothList.add("Shirt")
-            clothList.add("Long_Sleeved_Tee")
+            clothList.add("Long_Sleeve_Tee")
             clothList.add("Hood")
             clothList.add("MTM")
             clothList.add("Cotten_Pants")
@@ -272,23 +272,23 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         }
         else if(temp in 16..23){
             if(rainStatus==1||rainStatus==4){
-                clothText = "날이 따듯하고비가 내려요! 상큼하게 후드티 입어보시는건 어떤가요? 우산은 챙기시는게 좋을것같네요!"
+                clothText = "날이 따뜻하고 비가 내려요! 상큼하게 후드티 입어보시는건 어떤가요? 우산은 챙기시는게 좋을것같네요!"
                 clothList.add("Hood")
                 clothList.add("Umbrella")
             }
             else if(rainStatus==5){
-                clothText="날이 따듯하고 비가 조금 내리네요! 가디건을 걸쳐보세요! 우산을 챙기면 더 좋을것 같아요!"
+                clothText="날이 따뜻하고 비가 조금 내리네요! 가디건을 걸쳐보세요! 우산을 챙기면 더 좋을것 같아요!"
                 clothList.add("Cardigan")
                 clothList.add("Umbrella")
             }
             else if(skyStatus==1){
-                clothText="날이 따듯하고 맑아요! 상큼하게 베스트 어떠세요?"
+                clothText="날이 따뜻하고 맑아요! 상큼하게 베스트 어떠세요?"
             }
             else if(skyStatus==3){
-                clothText="날이 따듯하지만 구름이 조금 있네요! 상큼하게 블레이저 어떠신가요?"
+                clothText="날이 따뜻하지만 구름이 조금 있네요! 상큼하게 블레이저 어떠신가요?"
             }
             else if(skyStatus==4){
-                clothText="날이 따듯하지만 흐려서 우중충 하네요... 상큼하게 맨투맨 어떠신가요?"
+                clothText="날이 따뜻하지만 흐려서 우중충 하네요... 상큼하게 맨투맨 어떠신가요?"
             }
             else{
                 clothText = "일교차가 큽니다. 가디건이나 자켓을 챙기세요!"
@@ -314,7 +314,7 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         else if(temp in 24..29){
             if(rainStatus==1||rainStatus==4){
                 clothText = "날이 조금 덥고 비가 내려 습하네요! 선선하게 긴팔티 어떠세요? 우산은 꼭 챙겨야하는거 아시죠?"
-                clothList.add("Long+Sleeved_Tee")
+                clothList.add("Long_Sleeve_Tee")
                 clothList.add("Umbrella")
             }
             else if(rainStatus==5){
@@ -336,8 +336,8 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
             }
             clothList.add("Blouse")
             clothList.add("Shirt")
-            clothList.add("Short_Sleeved_Tee")
-            clothList.add("Long_Sleeved_Tee")
+            clothList.add("Short_Sleeve_Tee")
+            clothList.add("Long_Sleeve_Tee")
             clothList.add("Cotten_Pants")
             clothList.add("Denim")
             clothList.add("Jogger")
@@ -353,7 +353,7 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
             }
             else if(rainStatus==5){
                 clothText="날이 매우 덥고 비가 조금 내려 습하네요... 시원하게 반팔티 어떠세요? 우산은 챙기시는게 좋을것같아요~!"
-                clothList.add("Short_Sleeved_Tee")
+                clothList.add("Short_Sleeve_Tee")
                 clothList.add("Umbrella")
             }
             else if(skyStatus==1){
@@ -366,7 +366,7 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
                 clothText="날이 매우 덥고 흐려서 우중충해요~ 시원하게 반바지 어떠세요?"
             }
             else{
-                clothText = "너무너무너무 더워요!! 열사병, 일사병 조심하시며 옷 입는게 좋아요~!~!"
+                clothText = "너무너무너무 더워요!! 열사병, 일사병 유의하여 옷 입는게 좋아요~!~!"
             }
             clothList.add("Blouse")
             clothList.add("Shirt")

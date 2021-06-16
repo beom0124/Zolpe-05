@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.EditText
 import android.widget.Toast
+import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import com.example.zolpe_05.databinding.ActivityLoginBinding
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -39,6 +40,9 @@ class LoginActivity : AppCompatActivity() {
         setContentView(R.layout.activity_login)
         setContentView(binding.root)
 
+        var actionBar: ActionBar?
+        actionBar = supportActionBar
+        actionBar?.hide()
         //auth = FirebaseAuth.getInstance()
         auth = Firebase.auth
         // [START config_signin]
