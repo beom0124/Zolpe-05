@@ -1,6 +1,8 @@
 package com.example.zolpe_05.ui
 
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.Toast
@@ -24,29 +26,41 @@ import com.example.zolpe_05.utils.Time
 import kotlinx.android.synthetic.main.activity_chat.*
 import kotlinx.coroutines.*
 
-class ChatActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemSelectedListener{
+class ChatActivity : AppCompatActivity(){
 
     var messagesList = mutableListOf<Message>()
 
     private lateinit var adapter: MessagingAdapter
-   // private val botList = listOf("Peter", "Francesca", "Luigi", "Igor")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_chat)
-        var actionBar : ActionBar?
-        actionBar = supportActionBar
-        actionBar?.hide()
 
         recyclerView()
         clickEvents()
 
-        var bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
-        bottomNavigationView.setOnNavigationItemSelectedListener(this)
-
-       // val random = (0..3).random()
         customBotMessage("안녕하세요, 오늘의 코디입니다. \n 지금 채팅을 시작해주세요!")
 
+        val actionbar = supportActionBar
+        actionbar!!.title = " "
+        //actionbar backbutton 설정
+        actionbar.setDisplayHomeAsUpEnabled(true)
+        actionbar.setDisplayHomeAsUpEnabled(true)
+
+        supportActionBar?.apply {
+            //actionbar background color 설정
+            setBackgroundDrawable(
+                ColorDrawable(
+                    Color.parseColor("#000000")
+                )
+            )
+        }
+
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
     }
 
     private fun clickEvents() {
@@ -100,7 +114,7 @@ class ChatActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
             rv_messages.scrollToPosition(adapter.itemCount - 1)
 
 
-            //botResponse(message)
+            botResponse(message)
         }
     }
 
@@ -154,31 +168,5 @@ class ChatActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
                 rv_messages.scrollToPosition(adapter.itemCount - 1)
             }
         }
-    }
-
-    override fun onNavigationItemSelected(item: MenuItem): Boolean {
-        when(item.itemId) {
-            R.id.home -> {
-                val homeIntent = Intent(this, MainActivity::class.java)
-                homeIntent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK
-                startActivity(homeIntent)
-                finish()
-                return true
-            }
-
-            R.id.chat -> {
-                Toast.makeText(this,"이미 챗봇 메뉴에 있습니다.", Toast.LENGTH_SHORT).show()
-                return true
-            }
-
-            R.id.magazine -> {
-                val homeIntent = Intent(this, MagazineActivity::class.java)
-                homeIntent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK
-                startActivity(homeIntent)
-                finish()
-                return true
-            }
-        }
-        return false
     }
 }

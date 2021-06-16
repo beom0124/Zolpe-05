@@ -32,14 +32,6 @@ object BotResponse {
                     else -> "error" }
             }
 
-            message.contains("오류는 배때문이야") -> {
-                when (random) {
-                    0 -> "배때문!"
-                    1 -> "배때문이야 배때문이야"
-                    2 -> "어케 알았누 시팔"
-                    else -> "error" }
-            }
-
             message.contains("time") && message.contains("?")-> {
                 val timeStamp = Timestamp(System.currentTimeMillis())
                 val sdf = SimpleDateFormat("dd/MM/yyyy HH:mm")

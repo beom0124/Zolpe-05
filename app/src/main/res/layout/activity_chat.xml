@@ -6,19 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".ui.ChatActivity">
 
-
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottomNavigationView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:itemBackground="@android:color/white"
-        app:itemTextColor="#318CE8"
-        app:itemIconSize="20dp"
-        app:itemIconTint="#318CE8"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/bottom_navigation_menu" />
-
     <LinearLayout
         android:id="@+id/ll_layout_bar"
         android:layout_width="match_parent"
@@ -26,6 +13,7 @@
         android:layout_alignParentBottom="true"
         android:background="#E4E4E4"
         android:orientation="horizontal">
+
 
         <EditText
             android:id="@+id/et_message"
@@ -36,7 +24,7 @@
             android:layout_weight=".5"
             android:background="@drawable/round_button"
             android:backgroundTint="@android:color/white"
-            android:hint="Type a message..."
+            android:hint="지금 채팅을 시작해 보세요!"
             android:padding="10dp"
             android:singleLine="true" />
 
@@ -47,9 +35,9 @@
             android:layout_margin="10dp"
             android:layout_weight="1"
             android:background="@drawable/round_button"
-            android:backgroundTint="#26A69A"
-            android:text="Send"
-            android:textColor="@android:color/white" />
+            android:text="전송"
+            android:textColor="#000000"
+            android:backgroundTint="#FFFF00"/>
 
     </LinearLayout>
 
@@ -58,14 +46,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@id/ll_layout_bar"
-        android:layout_below="@+id/dark_divider"
         tools:itemCount="20"
         tools:listitem="@layout/message_item" />
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="10dp"
-        android:background="#42A5F5"
-        android:id="@+id/dark_divider"/>
+
 
 
 </RelativeLayout>
