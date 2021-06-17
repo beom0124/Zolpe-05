@@ -27,7 +27,7 @@
             android:layout_height="50dp"
             android:layout_gravity="center"
             android:inputType="textEmailAddress"
-            android:hint="아이디를 입력하세요."
+            android:hint="아이디를 입력하세요"
             android:padding="10dp"
             android:layout_marginBottom="10dp"
             android:background="@drawable/edittext_border"
@@ -45,45 +45,52 @@
             android:layout_marginBottom="30dp"
             android:hint="패스워드를 입력하세요"
             />
+
         <Button
-            android:textSize="20dp"
-            android:background="@color/login_button"
             android:id="@+id/login_btn"
             android:layout_width="300dp"
             android:layout_height="55dp"
+            android:layout_gravity="center"
             android:layout_marginStart="75dp"
             android:layout_marginTop="25dp"
             android:layout_marginEnd="75dp"
-            android:layout_gravity="center"
+            android:background="#FFFFFF"
+            android:backgroundTint="#FFFFFF"
             android:text="로그인"
+            android:textSize="20dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/login_pw" />
 
-        <TextView
+        <Button
             android:id="@+id/join"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="56dp"
-            android:layout_gravity="right"
+            android:layout_width="300dp"
+            android:layout_height="55dp"
+            android:layout_gravity="center"
+            android:layout_marginStart="75dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="75dp"
+            android:background="#5666CD"
+            android:backgroundTint="#00000000"
+            android:foregroundTint="#00000000"
             android:text="회원가입"
-
-            android:textColor="#000000"
-            android:textSize="18dp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:textSize="20dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.554" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/login_pw" />
+
+
 
         <com.google.android.gms.common.SignInButton
             android:id="@+id/google_login"
-            android:layout_width="300dp"
-            android:layout_height="55dp"
+            android:layout_width="310dp"
+            android:layout_height="60dp"
             android:layout_gravity="center"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/login_button"
+            android:layout_marginTop="10dp"
             android:layout_marginBottom="100dp"/>
 
     </LinearLayout>

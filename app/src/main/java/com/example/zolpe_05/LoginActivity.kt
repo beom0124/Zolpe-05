@@ -22,18 +22,11 @@ import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.activity_login.*
 
 class LoginActivity : AppCompatActivity() {
-    val binding by lazy { ActivityLoginBinding.inflate(layoutInflater)}
+    val binding by lazy { ActivityLoginBinding.inflate(layoutInflater) }
 
     private lateinit var googleSignInClient: GoogleSignInClient
     private lateinit var auth: FirebaseAuth
     private var RC_SIGN_IN = 9001
-
-    // ...
-// Initialize Firebase Auth
-    //private var firebaseAuth : FirebaseAuth? = null
-    //private var RC_SIGN_IN = 9001
-    //private var googleSignInClient: GoogleSignInClient? = null
-    //구글 계정 로그인
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,7 +36,6 @@ class LoginActivity : AppCompatActivity() {
         var actionBar: ActionBar?
         actionBar = supportActionBar
         actionBar?.hide()
-        //auth = FirebaseAuth.getInstance()
         auth = Firebase.auth
         // [START config_signin]
         // Configure Google Sign In
@@ -53,35 +45,36 @@ class LoginActivity : AppCompatActivity() {
             .build()
 
         googleSignInClient = GoogleSignIn.getClient(this, gso)
-        google_login.setOnClickListener{
+        google_login.setOnClickListener {
             val signInIntent = googleSignInClient.signInIntent
             startActivityForResult(signInIntent, RC_SIGN_IN)
         }
-        ///////////
+
+        //회원가입 버튼 클릭시
         join.setOnClickListener {         //회원가입
             val memberShip = Intent(this, SignUpActivitiy::class.java)
             startActivity(memberShip)
         }
 
+        //구글로그인 버튼 클릭시
         login_btn.setOnClickListener {        //이메일로그인
-            // 사용자의 아이디와 이메일  ( 현서 11/3일 )
+            // 사용자의 아이디와 이메일
             val email = (findViewById<View>(R.id.login_id) as EditText).text.toString()
             val password = (findViewById<View>(R.id.login_pw) as EditText).text.toString()
             if (email.length > 0 && password.length > 0) //null 값 체크
             {
-                // 파이어베이스 Auth 로그인 메소드 ( 현서 11/3일 )
+                // 파이어베이스 Auth 로그인 메소드
                 auth.signInWithEmailAndPassword(email, password)
                     .addOnCompleteListener(this)
                     { task ->
-                        // 로그인 성공시 ( 현서 11/3일 )
+                        // 로그인 성공시
                         if (task.isSuccessful) {
                             val user = FirebaseAuth.getInstance().currentUser
-                            //val currentUserEmail =
                             user!!.getIdToken(true)
                             val intent = Intent(this@LoginActivity, MainActivity::class.java)
                             startActivity(intent)
                         } else {
-                            //로그인 실패시  ( 현서 11/3일 )
+                            //로그인 실패시
                             Toast.makeText(
                                 this@LoginActivity, "아이디와 비밀번호가 정확하지 않습니다.",
                                 Toast.LENGTH_SHORT
@@ -94,13 +87,14 @@ class LoginActivity : AppCompatActivity() {
         }
 
     }
+
     override fun onStart() {
         super.onStart()
         // Check if user is signed in (non-null) and update UI accordingly.
         val currentUser = auth.currentUser
         updateUI(currentUser)
     }
-    //
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
@@ -113,7 +107,8 @@ class LoginActivity : AppCompatActivity() {
                 firebaseAuthWithGoogle(account.idToken!!)
             } catch (e: ApiException) {
                 // Google Sign In failed, update UI appropriately
-                Toast.makeText(this, "Google sign in failed", Toast.LENGTH_LONG).show()       }
+                Toast.makeText(this, "Google 계정으로 로그인에 실패했습니다.", Toast.LENGTH_LONG).show()
+            }
         }
     }
 
@@ -123,7 +118,7 @@ class LoginActivity : AppCompatActivity() {
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     // Sign in success, update UI with the signed-in user's information
-                    Toast.makeText(this, "FireBase 아이디 생성이 완료 되었습니다", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "Google 계정으로 로그인했습니다.", Toast.LENGTH_SHORT).show()
                     val user = auth.currentUser
                     updateUI(user)
                     val intent = Intent(this, MainActivity::class.java)
@@ -135,21 +130,13 @@ class LoginActivity : AppCompatActivity() {
                 }
             }
     }
+
     private fun updateUI(user: FirebaseUser?) {
 
     }
-//    private fun signIn(){
-//        google_login.setOnClickListener{
-//            val signInIntent = googleSignInClient.signInIntent
-//            startActivityForResult(signInIntent, RC_SIGN_IN)
-//        }
-//    }
-    private fun signOut(){
+
+    private fun signOut() {
         Firebase.auth.signOut()
     }
 
-    //======================
-    private fun signIn() {
-
-    }
 }

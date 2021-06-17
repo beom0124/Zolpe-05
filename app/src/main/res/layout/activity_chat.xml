@@ -32,7 +32,7 @@
             android:id="@+id/btn_send"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="10dp"
+            android:layout_margin="6dp"
             android:layout_weight="2"
             android:backgroundTint="#0D0463"
             android:text="전송"

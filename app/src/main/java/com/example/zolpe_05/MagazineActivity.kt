@@ -36,7 +36,7 @@ class MagazineActivity : AppCompatActivity() , BottomNavigationView.OnNavigation
 
     }
 
-    fun selectMagazine(){
+    fun selectMagazine(){ //fiebase에서 url값을 가져와 webView에 전달
         binding.webView.settings.javaScriptEnabled = true // 자바 스크립트 허용
 
         binding.webView.webViewClient = WebViewClient()
@@ -60,7 +60,6 @@ class MagazineActivity : AppCompatActivity() , BottomNavigationView.OnNavigation
                 homeIntent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK
                 startActivity(homeIntent)
                 finish()
-                //인텐트 flag랑 finish 해도 안 넘어계속 중간에 메인엑티비티 나옴
                 return true
             }
             R.id.magazine -> {

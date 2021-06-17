@@ -6,22 +6,16 @@ import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.zolpe_05.R
-import android.net.Uri
 import android.util.Log
-import android.widget.ImageView
 import androidx.core.net.toUri
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.bumptech.glide.Glide
 import com.example.zolpe_05.data.Message
-import com.example.zolpe_05.databinding.ActivityChatBinding
 import com.example.zolpe_05.utils.Constants.RECEIVE_ID
 import com.example.zolpe_05.utils.Constants.SEND_ID
 import com.example.zolpe_05.utils.Time
 import kotlinx.android.synthetic.main.activity_chat.*
 import kotlinx.coroutines.*
 import java.lang.Math.random
-
-
 
 class ChatActivity : AppCompatActivity(){
 
@@ -33,22 +27,17 @@ class ChatActivity : AppCompatActivity(){
     var temp = 0
     var listSize =0
     var clothList = emptyList<String>().toMutableList()
-    var categoryTitle = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_chat)
-
         recyclerView()
         clickEvents()
-
-        customBotMessage("안녕하세요, 오늘의 코디입니다. \n 지금 채팅을 시작해주세요!")
-
+        customBotMessage("안녕하세요, 오늘의 코디입니다. \n 지금 채팅을 시작해보세요!")
         val actionbar = supportActionBar
-        actionbar!!.title = " 오늘의 코디"
+        actionbar!!.title = " 코디 챗봇"
         actionbar.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.apply {
-            //actionbar background color 설정
             setBackgroundDrawable(
                 ColorDrawable(
                     Color.parseColor("#0D0463")
@@ -56,8 +45,7 @@ class ChatActivity : AppCompatActivity(){
             )
         }
 
-
-        if(intent.hasExtra("weatherText")){
+        if(intent.hasExtra("weatherText")){ //MainActivity에서 변수 받아옴
             weatherText = intent.getStringExtra("weatherText").toString()
         }
         if(intent.hasExtra("temp")){
@@ -72,9 +60,6 @@ class ChatActivity : AppCompatActivity(){
             tempString = intent.getStringExtra(index).toString()
             clothList.add(tempString)
         }
-
-
-
     }
 
     override fun onSupportNavigateUp(): Boolean {
@@ -82,36 +67,28 @@ class ChatActivity : AppCompatActivity(){
         return true
     }
 
-    private fun clickEvents() {
-
-        //메시지 보내기
+    private fun clickEvents() { //메시지 클릭시 처리
         btn_send.setOnClickListener {
             sendMessage()
         }
-
-        //사용자가 텍스트 보기를 클릭할 때 올바른 위치로 스크롤? 하기
         et_message.setOnClickListener {
             GlobalScope.launch {
                 delay(100)
 
                 withContext(Dispatchers.Main) {
                     rv_messages.scrollToPosition(adapter.itemCount - 1)
-
                 }
             }
         }
     }
-
     private fun recyclerView() {
         adapter = MessagingAdapter()
         rv_messages.adapter = adapter
         rv_messages.layoutManager = LinearLayoutManager(applicationContext)
 
     }
-
     override fun onStart() {
         super.onStart()
-        //메시지가 있는 경우 앱을 다시 열 때 아래로 스크롤하는 기능
         GlobalScope.launch {
             delay(100)
             withContext(Dispatchers.Main) {
@@ -125,10 +102,8 @@ class ChatActivity : AppCompatActivity(){
         val timeStamp = Time.timeStamp()
 
         if (message.isNotEmpty()) {
-            //Adds it to our local list
             messagesList.add(Message(message, SEND_ID, timeStamp))
             et_message.setText("")
-
             adapter.insertMessage(Message(message, SEND_ID, timeStamp))
             rv_messages.scrollToPosition(adapter.itemCount - 1)
             botResponse(message)
@@ -139,19 +114,13 @@ class ChatActivity : AppCompatActivity(){
         val timeStamp = Time.timeStamp()
 
         GlobalScope.launch {
-            //그냥 딜레이
             delay(1000)
 
             withContext(Dispatchers.Main) {
-                //응답 받아오기
                 val response = basicResponses(message)
 
-                //리스트에 추가
                 messagesList.add(Message(response, RECEIVE_ID, timeStamp))
-
                 adapter.insertMessage(Message(response, RECEIVE_ID, timeStamp))
-
-                //최신 메시지 위치로 스크롤
                 rv_messages.scrollToPosition(adapter.itemCount - 1)
             }
         }
@@ -164,13 +133,12 @@ class ChatActivity : AppCompatActivity(){
                 val timeStamp = Time.timeStamp()
                 messagesList.add(Message(message, RECEIVE_ID, timeStamp))
                 adapter.insertMessage(Message(message, RECEIVE_ID, timeStamp))
-
                 rv_messages.scrollToPosition(adapter.itemCount - 1)
             }
         }
     }
 
-    fun basicResponses(_message: String): String {
+    fun basicResponses(_message: String): String { //챗봇이 보내는 답장을 처리
 
         val message =_message.toLowerCase()
         var textToReturn = ""
@@ -184,6 +152,8 @@ class ChatActivity : AppCompatActivity(){
         if(intent.hasExtra("temp")){
             temp = intent.getIntExtra("temp",temp)
         }
+
+        //응답문 결정을 위한 Logic
         if(message.contains("안녕")||message.contains("하이")){
 
             val random = (0..2).random()
@@ -350,31 +320,34 @@ class ChatActivity : AppCompatActivity(){
             }
         }
 
-        else if(message.contains("무신사")&&(message.contains("열어")||message.contains("링크"))){
-//            val site = Intent(Intent.ACTION_VIEW)
-//            site.flags = Inte
-//            site.data = Uri.parse("https://store.musinsa.com/app/")
-//            startActivity(site)
+        else if(message.contains("무신사")&&(message.contains("열어")||message.contains("보여"))){
+            val link = "https://store.musinsa.com/app/".toUri()
+            val musinsaIntent = Intent(Intent.ACTION_VIEW)
+            musinsaIntent.setData(link)
+            startActivity(musinsaIntent)
         }
 
+        else if(message.contains("네이버")&&(message.contains("열어")||message.contains("보여"))){
+            val link = "https://www.naver.com/".toUri()
+            val musinsaIntent = Intent(Intent.ACTION_VIEW)
+            musinsaIntent.setData(link)
+            startActivity(musinsaIntent)
+        }
 
-        else{
+        else if(message.contains("종료")||message.contains("꺼")||message.contains("닫아")){
+            moveTaskToBack(true);
+            finish();
+            android.os.Process.killProcess(android.os.Process.myPid());
+        }
+
+        else{ //학습되지 않은 입력인 경우
             val random = (0..2).random()
-            if(message.contains("dialogflow")){
-                return "1891208 배수빈"
-            }
-            if(message.contains("충성")){
-                return "잘 못 들었습니다?"
-            }
             when(random){
                 0-> textToReturn = "학습되지 않은 말입니다!"
                 1-> textToReturn = "다시 말씀해주세요!"
                 2-> textToReturn = "이해하지 못 했어요"
             }
         }
-
         return textToReturn
     }
-
-
 }

@@ -6,8 +6,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import androidx.core.content.ContextCompat.startActivity
 import androidx.core.net.toUri
 import androidx.recyclerview.widget.RecyclerView
 import com.example.zolpe_05.R
@@ -31,7 +29,6 @@ class MessagingAdapter: RecyclerView.Adapter<MessagingAdapter.MessageViewHolder>
     inner class MessageViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         init {
             itemView.setOnClickListener {
-                //Remove message on the item clicked
                 messagesList.removeAt(adapterPosition)
                 notifyItemRemoved(adapterPosition)
             }
@@ -60,6 +57,8 @@ class MessagingAdapter: RecyclerView.Adapter<MessagingAdapter.MessageViewHolder>
                         imageViewParams.width = 0
                         imageViewParams.height = 0
                     }
+                    imageViewParams.width = 0
+                    imageViewParams.height = 0
                     text = currentMessage.message
                     visibility = View.VISIBLE
                     findStyle(text.toString())
@@ -73,7 +72,7 @@ class MessagingAdapter: RecyclerView.Adapter<MessagingAdapter.MessageViewHolder>
                 }
                 Log.d(
                     "messageListSize", messagesList.size.toString())//대화할수록 messageList의 크기는 계속 늘어남 처음에는 1
-                if (messagesList.size == 1) { //처음 시작이나 챗봇의 대답에 사진이 필요하지 않은경우
+                if (messagesList.size == 1) { //처음 시작이나 챗봇의 대답에 사진이 필요하지 않은 경우
                     imageViewParams.width = 0
                     imageViewParams.height = 0
                 }
@@ -82,15 +81,13 @@ class MessagingAdapter: RecyclerView.Adapter<MessagingAdapter.MessageViewHolder>
                         imageViewParams.width = 0
                         imageViewParams.height = 0
                     } else {
-                        val random = (0..20).random()
+                        val random = (1..20).random()
                         itemsCollectionRef = db.collection(calledStyle)
                         itemsCollectionRef.document(random.toString()).get().addOnSuccessListener {
                             holder.itemView.imageView.visibility = View.VISIBLE
                             Log.d("image",it["image"].toString())
                             Glide.with(context).load(it["image"].toString().toUri())
                                 .into(holder.itemView.imageView)
-                            imageViewParams.width = 800
-                            imageViewParams.height = 1050
                         }
                     }
                 }
@@ -98,7 +95,6 @@ class MessagingAdapter: RecyclerView.Adapter<MessagingAdapter.MessageViewHolder>
             }
         }
     }
-
 
     fun findStyle(input: String){
         if(input.contains("캐쥬얼")||input.contains("캐주얼")||input.contains("케쥬얼")||input.contains("케주얼")||input.contains("캐듀얼")||input.contains("케듀얼")||input.contains(" Cadual")||input.contains("cadual")||input.contains("무난")||input.contains("평범")){

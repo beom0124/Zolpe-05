@@ -13,16 +13,15 @@ import com.google.firebase.ktx.Firebase
 
 
 class SignUpActivitiy : AppCompatActivity() {
-    //private val mAuth = FirebaseAuth.getInstance() //파이어베이스 인증 연동 ( 현서 11/1일 )
-    private lateinit var auth: FirebaseAuth
+     private lateinit var auth: FirebaseAuth
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_signup)
-        findViewById<View>(R.id.member_button).setOnClickListener(onClickListener) // 회원가입 버튼 클릭시 메소드 실행 ( 현서 11/1일 )
+        findViewById<View>(R.id.member_button).setOnClickListener(onClickListener) // 회원가입 버튼 클릭시 메소드 실행
         auth = Firebase.auth
     }
 
-    //클릭 이벤트 Switch 문으로 넘겨진 id 값에 따라 메소드 처리 ( 현서 11/1일 )
+    //클릭 이벤트 Switch 문으로 넘겨진 id 값에 따라 메소드 처리
     var onClickListener =
         View.OnClickListener { v ->
             when (v.id) {
@@ -33,7 +32,6 @@ class SignUpActivitiy : AppCompatActivity() {
     public override fun onStart() {
         super.onStart()
         val currentUser = auth.currentUser
-        //
         updateUI(currentUser)
     }
 
@@ -43,33 +41,24 @@ class SignUpActivitiy : AppCompatActivity() {
         val password = (findViewById<View>(R.id.signup_password) as EditText).text.toString()
         val passwordCheck =
             (findViewById<View>(R.id.signup_passconfirm) as EditText).text.toString()
-        if (email.length > 0 && password.length > 0 && passwordCheck.length > 0) //null 값 체크 ( 현서 11/1일 )
+        if (email.length > 0 && password.length > 0 && passwordCheck.length > 0) //null 값 체크
         {
-            // 패스워드 같을 때만 회원가입 완료되게 ( 현서 11/1일 )
+            // 패스워드 같을 때만 회원가입 완료
             if (password == passwordCheck) {
                 auth.createUserWithEmailAndPassword(email, password)
                     .addOnCompleteListener(
                         this
                     ) { task ->
                         if (task.isSuccessful) {
-                            // 회원가입 성공시 ( 현서 11/1일 )
+                            // 회원가입 성공시
                             val user = auth.currentUser
-                            Toast.makeText(
-                                this@SignUpActivitiy,
-                                "회원가입이 성공했습니다.",
-                                Toast.LENGTH_SHORT
-                            )
-                                .show()
+                            Toast.makeText(this@SignUpActivitiy, "회원가입이 성공했습니다.", Toast.LENGTH_SHORT).show()
                             val intent = Intent(this@SignUpActivitiy, LoginActivity::class.java)
                             startActivity(intent)
                         } else {
-                            //회원가입 실패시 ( 현서 11/1일 )
+                            //회원가입 실패시
                             Toast.makeText(
-                                this@SignUpActivitiy,
-                                "회원가입이 실패했습니다.",
-                                Toast.LENGTH_SHORT
-                            )
-                                .show()
+                                this@SignUpActivitiy, "회원가입이 실패했습니다.", Toast.LENGTH_SHORT).show()
                         }
                     }
             } else {

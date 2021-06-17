@@ -31,7 +31,7 @@ val data_type = "JSON"
 var base_time = "0800"
 var base_date = "20210609"
 val nx = "60"
-val ny = "127" //성북구 삼선동 좌표임
+val ny = "127" //성북구 삼선동 좌표
 
 data class WEATHER(
     val response: RESPONSE
@@ -57,7 +57,7 @@ data class ITEM(
     val fcstValue: String
 )
 
-interface  WeatherInterface{
+interface  WeatherInterface{ //api에 보낼 request 작성
     @GET("getVilageFcst?serviceKey=pbknASs62KuOAXWykoKe2SgYgmbPllEWyGr2X5LrKa9yB2r5FjsJM1VgU%2B1TPy639oL%2FTqj4JM14Z01CpQMlXg%3D%3D")
     fun GetWeather(
         @Query("dataType") data_type: String,
@@ -70,7 +70,7 @@ interface  WeatherInterface{
     ): Call<WEATHER>
 }
 
-val retrofit = Retrofit.Builder()
+val retrofit = Retrofit.Builder() //JSON 통신을 위한 객체 생성
     .baseUrl("http://apis.data.go.kr/1360000/VilageFcstInfoService/")
     .addConverterFactory(GsonConverterFactory.create())
     .build()
@@ -110,8 +110,7 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         call.enqueue(object : retrofit2.Callback<WEATHER> {
             override fun onResponse(call: Call<WEATHER>, response: Response<WEATHER>) {
                 if (response.isSuccessful) {
-                    Log.d("api", response.body().toString())
-                    Log.d("api", response.body()!!.response.body.items.toString()) //날짜, 시간 바꾸면 여기서 뻗음 이유 찾아야해
+                    Log.d("api", response.body()!!.response.body.items.toString())
                     weatherResult = response.body()!!.response.body.items.toString().split("(")
                     setWeatherInfo()
                     setWeatherTextIcon()
@@ -126,7 +125,7 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
 
     }
 
-    fun getDateTime(){
+    fun getDateTime(){ //현재 시간을 구해 제공되는 예보중 가장 가까운 시간의 예보 출력
         val now: Long = System.currentTimeMillis()
         val date = Date(now)
         val dateFormat = SimpleDateFormat("yyyyMMdd")
@@ -164,10 +163,9 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
             base_time = "2300"
         }
 
-        Log.d("api", base_date+ base_time)
     }
 
-    fun setClothImage(clothId: String, itemId: Int) {
+    fun setClothImage(clothId: String, itemId: Int) { //Firestore에서 이미지를 불러와 imageView에 표시
         itemsCollectionRef = db.collection(clothId)
         itemsCollectionRef.document(itemId.toString()).get()
             .addOnSuccessListener { // it: DocumentSnapshot
@@ -381,7 +379,6 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
             val random = Random()
             val cloth_random_num = random.nextInt(list_size)
             val cloth_random_id = random.nextInt(19)+1
-            Log.d("random_num",cloth_random_num.toString()+"  "+cloth_random_id.toString())
             setClothImage(clothList[cloth_random_num], cloth_random_id)
         }
         doRandom()
@@ -393,7 +390,7 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         }
     }
 
-    fun setWeatherInfo(){
+    fun setWeatherInfo(){ //api의 응답에서 필요한 부분 추출
         var rainPercentInfo = weatherResult[2]
         var rainStatusInfo = weatherResult[3]
         var skyStatusInfo = ""
@@ -414,8 +411,6 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         else{
             tempInfo = weatherResult[6]
         }
-
-        //bae
 
         var find1 = rainPercentInfo.lastIndexOf("=")
         var find2 = rainPercentInfo.indexOf(")")
@@ -449,10 +444,10 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
             else -> rainStatusText = "???"
         }
         if(rainPercent ==0){
-            rainPercentText = "\n오늘은 비 소식이 없고"
+            rainPercentText = "오늘은 비 소식이 없고"
         }
         else{
-            rainPercentText = "\n오늘은 "+ rainPercent+"%의 확률로 " + rainStatusText
+            rainPercentText = "오늘은 "+ rainPercent+"%의 확률로 " + rainStatusText
         }
         when(skyStatus){
             1 -> skyStatusText = "맑은 날씨입니다."
