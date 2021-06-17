@@ -18,6 +18,9 @@ class SignUpActivitiy : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_signup)
+        var actionBar: ActionBar?
+        actionBar = supportActionBar
+        actionBar?.hide()
 
         findViewById<View>(R.id.member_button).setOnClickListener(onClickListener) // 회원가입 버튼 클릭시 메소드 실행
         auth = Firebase.auth
